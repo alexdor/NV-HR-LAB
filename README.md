@@ -1,5 +1,7 @@
 # nv-hr-lab
 
+[Management](https://github.com/taigacompany/management/wiki)
+
 ## Project setup
 ```
 npm install
