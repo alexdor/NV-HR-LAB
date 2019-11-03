@@ -1,32 +1,63 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+<div id="app">
+    <div class="nav">
+        <router-link to="/">
+            <Logo />
+        </router-link>
+        <div class="nav-links">
+            <router-link to="/about">About us</router-link>
+            <Search />
+            <p>DK</p>
+        </div>
     </div>
     <router-view />
-  </div>
+</div>
 </template>
 
+<script>
+import Logo from "@/components/icons/Logo.vue";
+import Search from "@/components/icons/Search.vue";
+
+export default {
+  name: "logo",
+  components: {
+    Logo,
+    Search
+  }
+};
+</script>
+
 <style lang="scss">
+body {
+    margin: 0;
+}
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: #ae966c;
+    font-family: Avenir, Helvetica Neue,Helvetica,sans-serif;
 }
 
-#nav {
-  padding: 30px;
+.nav {
+    padding: 30px 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-basis: 22%;
+        justify-content: space-between;
 
-    &.router-link-exact-active {
-      color: #42b983;
+        a, p {
+            color: #ae966c;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+        }
     }
-  }
 }
 </style>
