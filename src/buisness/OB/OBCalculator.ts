@@ -5,7 +5,6 @@ import OBInput from './OBInput';
 class OBCalculator implements ICalculator<OBInput, OBResult>{
     calculate(input: OBInput): OBResult {
         var monthsEmployed = (input.terminationDate.getFullYear() - input.employmentDate.getFullYear()) * 12 + (input.terminationDate.getMonth() - input.employmentDate.getMonth());
-        console.log(monthsEmployed)
         let terminationNotice : number = 0;
 
 
@@ -19,8 +18,6 @@ class OBCalculator implements ICalculator<OBInput, OBResult>{
             terminationNotice = 5;
         } else if(monthsEmployed >= (12*8)+7){
             terminationNotice = 6;
-        } else {
-            console.log("AHHHHHHHHHHHHHHHHHHHHHHHHHHH!")
         }
         
         terminationNotice += input.extension;
