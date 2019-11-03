@@ -34,6 +34,8 @@
                 </ul>
             </p>
         </div>
+    </div>
+    <div class="home-row-4">
         <div class="">
             <p>
                 Vi hjælper også gerne med de spørgsmål, der melder sig i opsigelsesprocessen, som fx
@@ -112,15 +114,21 @@ export default {
         }
     }
 
-    .home-row-3 {
+    .home-row-3, .home-row-4{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         padding: 40px 0;
+        border-bottom: 2px dotted #ae966c;
 
         div {
-            flex-basis: 45%;
+            flex-basis: 60%;
+            margin: auto;
         }
+    }
+
+    .home-row-4 {
+        border-bottom: none;
     }
 }
 </style>
