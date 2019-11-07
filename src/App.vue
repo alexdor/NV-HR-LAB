@@ -1,17 +1,17 @@
 <template>
-<div id="app">
+  <div id="app">
     <div class="nav">
-        <router-link to="/">
-            <Logo />
-        </router-link>
-        <div class="nav-links">
-            <router-link to="/about">About us</router-link>
-            <Search />
-            <p>DK</p>
-        </div>
+      <router-link to="/">
+        <Logo />
+      </router-link>
+      <div class="nav-links">
+        <router-link to="/about">About us</router-link>
+        <Search />
+        <p>DK</p>
+      </div>
     </div>
     <router-view />
-</div>
+  </div>
 </template>
 
 <script>
@@ -19,7 +19,7 @@ import Logo from "@/components/icons/Logo.vue";
 import Search from "@/components/icons/Search.vue";
 
 export default {
-  name: "logo",
+  name: "App",
   components: {
     Logo,
     Search
@@ -29,35 +29,36 @@ export default {
 
 <style lang="scss">
 body {
-    margin: 0;
+  margin: 0;
 }
 #app {
-    font-family: "Avenir", Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: #ae966c;
-    font-family: Avenir, Helvetica Neue,Helvetica,sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #ae966c;
+  font-family: Avenir, Helvetica Neue, Helvetica, sans-serif;
 }
 
 .nav {
-    padding: 30px 80px;
+  padding: 30px 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .nav-links {
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-basis: 22%;
     justify-content: space-between;
 
-    .nav-links {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        flex-basis: 22%;
-        justify-content: space-between;
-
-        a, p {
-            color: #ae966c;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-        }
+    a,
+    p {
+      color: #ae966c;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
     }
+  }
 }
 </style>
