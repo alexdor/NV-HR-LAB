@@ -1,22 +1,27 @@
 <template>
   <div class="home">
-    <input v-model="empDate" type="date" />
-    <input v-model="termDate" type="date" />
-    <input v-model="ext" type="number" />
-    <button @click="calculate()">Beregn!</button>
+    <date-input v-model="empDate"></date-input>
+    <date-input v-model="termDate" />
+    <generic-input v-model="ext" type="number"></generic-input>
+    <nv-button @click="calculate()">Beregn!</nv-button>
 
-    <p>{{ this.output.terminationNotice }}</p>
-    <p>{{ this.output.terminationDate.toDateString() }}</p>
+    <p>{{ output.terminationNotice }}</p>
+    <p>{{ output.terminationDate.toDateString() }}</p>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { calculate } from "@/business/OB/OBCalculator.ts";
+import DateInput from "@/components/DateInput.vue";
+import GenericInput from "@/components/GenericInput.vue";
+import NvButton from "@/components/NvButton.vue";
 import { OBInput, OBResult } from "@/business/OB/interfaces.ts";
-export default {
+import Vue from "vue";
+
+export default Vue.extend({
   name: "Home",
-  components: {},
-  data() {
+  components: { DateInput, GenericInput, NvButton },
+  data(): { input: OBInput; output: OBResult } {
     return {
       input: {
         employmentDate: new Date(),
@@ -28,36 +33,34 @@ export default {
   },
   computed: {
     empDate: {
-      set(val) {
+      set(val: string): void {
         this.input.employmentDate = new Date(val);
       },
-      get() {
-        // FIXME: fix types here
+      get(): string {
         return this.input.employmentDate.toISOString().slice(0, 10);
       }
     },
     termDate: {
-      set(val) {
+      set(val: string): void {
         this.input.terminationDate = new Date(val);
       },
-      get() {
+      get(): string {
         return this.input.terminationDate.toISOString().slice(0, 10);
       }
     },
     ext: {
-      set(val) {
+      set(val: string): void {
         this.input.extension = parseInt(val);
       },
-      get() {
+      get(): number {
         return this.input.extension;
       }
     }
   },
   methods: {
-    calculate() {
+    calculate(): void {
       this.output = calculate(this.input);
     }
   }
-};
+});
 </script>
-<style lang="scss" scoped></style>
