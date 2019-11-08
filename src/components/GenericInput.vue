@@ -1,7 +1,7 @@
 <template>
   <input
     :value="value"
-    type="this.type"
+    :type="type"
     @input="$emit('input', $event.target.value)"
   />
 </template>

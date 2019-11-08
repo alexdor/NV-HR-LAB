@@ -2,7 +2,7 @@
   <div class="home">
     <date-input v-model="empDate"></date-input>
     <date-input v-model="termDate" :error="error" />
-    <generic-input v-model="ext" type="number"></generic-input>
+    <generic-input v-model="ext" min="0" type="number"></generic-input>
     <nv-button @click="calculate()">Beregn!</nv-button>
 
     <p>{{ output.terminationNotice }}</p>
@@ -50,7 +50,7 @@ export default Vue.extend({
     },
     ext: {
       set(val: string): void {
-        this.input.extension = parseInt(val);
+        this.input.extension = parseInt(val) || 0;
       },
       get(): number {
         return this.input.extension;
