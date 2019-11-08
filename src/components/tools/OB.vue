@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <date-input v-model="empDate"></date-input>
-    <date-input v-model="termDate" />
+    <date-input v-model="termDate" :error="error" />
     <generic-input v-model="ext" type="number"></generic-input>
     <nv-button @click="calculate()">Beregn!</nv-button>
 
@@ -33,19 +33,19 @@ export default Vue.extend({
   },
   computed: {
     empDate: {
-      set(val: string): void {
+      set(val: Date): void {
         this.input.employmentDate = new Date(val);
       },
-      get(): string {
-        return this.input.employmentDate.toISOString().slice(0, 10);
+      get(): Date {
+        return this.input.employmentDate; //.toISOString().slice(0, 10);
       }
     },
     termDate: {
-      set(val: string): void {
+      set(val: Date): void {
         this.input.terminationDate = new Date(val);
       },
-      get(): string {
-        return this.input.terminationDate.toISOString().slice(0, 10);
+      get(): Date {
+        return this.input.terminationDate; //.toISOString().slice(0, 10);
       }
     },
     ext: {
@@ -55,6 +55,12 @@ export default Vue.extend({
       get(): number {
         return this.input.extension;
       }
+    },
+    error(): boolean {
+      return (
+        this.input.employmentDate.getTime() >
+        this.input.terminationDate.getTime()
+      );
     }
   },
   methods: {

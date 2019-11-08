@@ -6,10 +6,12 @@
   />
 </template>
 <script lang="ts">
-export default {
+import Vue from "vue";
+export default Vue.extend({
   name: "GenericInput",
   props: {
     value: {
+      type: [String, Number],
       required: true
     },
     type: {
@@ -17,5 +19,5 @@ export default {
       default: "text"
     }
   }
-};
+});
 </script>
