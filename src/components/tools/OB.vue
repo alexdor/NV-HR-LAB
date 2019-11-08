@@ -37,7 +37,7 @@ export default Vue.extend({
         this.input.employmentDate = new Date(val);
       },
       get(): Date {
-        return this.input.employmentDate; //.toISOString().slice(0, 10);
+        return this.input.employmentDate;
       }
     },
     termDate: {
@@ -45,7 +45,7 @@ export default Vue.extend({
         this.input.terminationDate = new Date(val);
       },
       get(): Date {
-        return this.input.terminationDate; //.toISOString().slice(0, 10);
+        return this.input.terminationDate;
       }
     },
     ext: {
