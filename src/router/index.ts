@@ -26,12 +26,20 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "ob" */ "../views/OB.vue")
+  },
+  {
+    path: "/sickdays",
+    name: "Sick Days",
     component: () =>
-      import(/* webpackChunkName: "ob" */ "../components/tools/OB.vue")
+      import(
+        /* webpackChunkName: "sick-days" */ "../views/SickdayCalculator.vue"
+      )
   }
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes
 });
 
