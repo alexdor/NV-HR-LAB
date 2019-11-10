@@ -7,6 +7,8 @@
     :required="true"
     input-class="date-input"
     @selected="$emit('input', $event)"
+    @input="$emit('input', $event)"
+    @closed="$emit('closed', $event)"
   ></datepicker>
 </template>
 <script lang="ts">
@@ -17,7 +19,7 @@ export default Vue.extend({
   name: "DateInput",
   components: { Datepicker },
   props: {
-    value: { type: Date, required: true },
+    value: { type: [Date, String] },
     error: { type: Boolean, default: false }
   }
 });
@@ -32,5 +34,15 @@ export default Vue.extend({
   /* TODO: Add tooltip with an error */
   border: 1px solid red;
   padding: 0.2rem;
+}
+
+input {
+  border: 2px solid #ae966c;
+  border-radius: 10px;
+  text-align: left;
+  padding: 5px;
+}
+input[type="number"] {
+  width: 60px;
 }
 </style>

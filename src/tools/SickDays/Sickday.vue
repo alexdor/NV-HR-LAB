@@ -1,11 +1,11 @@
 <template>
   <div class="row">
     <div class="cell date">
-      <input v-model="sickday.date" type="date" />
+      <date-input v-model="sickday.date"></date-input>
     </div>
     <div class="cell weekday">{{ weekday }}</div>
     <div class="cell hours">
-      <input v-model="sickday.hours" type="number" />
+      <generic-input v-model="sickday.hours" min="0" type="number" />
     </div>
     <div class="cell days">{{ days }}</div>
     <div class="cell cumulative-days">{{ cumulativeDays }}</div>
@@ -14,7 +14,10 @@
 
 <script lang="ts">
 import Vue from "vue";
+import GenericInput from "@/components/GenericInput.vue";
+import DateInput from "@/components/DateInput.vue";
 export default Vue.extend({
+  components: { GenericInput, DateInput },
   props: ["sickday", "workHours", "language", "accumulatedHours"],
   data() {
     return {
@@ -62,14 +65,5 @@ export default Vue.extend({
   &.date {
     width: 0.01%;
   }
-}
-input {
-  border: 2px solid #ae966c;
-  border-radius: 10px;
-  text-align: left;
-  padding: 5px;
-}
-input[type="number"] {
-  width: 60px;
 }
 </style>

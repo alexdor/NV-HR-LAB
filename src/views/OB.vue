@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts">
-import { calculate } from "@/business/OB/OBCalculator.ts";
+import { calculate } from "@/tools/OB/OBCalculator";
 import DateInput from "@/components/DateInput.vue";
 import GenericInput from "@/components/GenericInput.vue";
 import NvButton from "@/components/NvButton.vue";
-import { OBInput, OBResult } from "@/business/OB/interfaces.ts";
+import { OBInput, OBResult } from "@/tools/OB/interfaces";
 import Vue from "vue";
 
 export default Vue.extend({

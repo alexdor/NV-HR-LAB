@@ -1,4 +1,4 @@
 export interface NewSickDay {
-  date: string;
+  date: Date;
   hours: number;
 }

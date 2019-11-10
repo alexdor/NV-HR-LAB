@@ -1,12 +1,7 @@
 <template>
   <div class="row">
     <div class="cell date">
-      <input
-        v-model="date"
-        type="date"
-        @keyup.enter="sendForm()"
-        @blur="sendForm()"
-      />
+      <date-input v-model="date" @input="sendForm()" />
     </div>
     <div class="cell weekday"></div>
     <div class="cell hours">
@@ -26,10 +21,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { NewSickDay } from "./interfaces";
+import DateInput from "@/components/DateInput.vue";
+import { uuidv4 } from "@/helpers/uuid";
 export default Vue.extend({
+  components: {
+    DateInput
+  },
   data() {
     return {
-      date: "",
+      id: uuidv4(),
+      date: new Date(),
       hours: 0,
       isCreating: true
     };
@@ -42,14 +43,15 @@ export default Vue.extend({
       this.isCreating = false;
     },
     sendForm(): void {
-      if (this.date.length > 0 && this.hours && this.hours > 0) {
+      if (this.date && this.hours && this.hours > 0) {
         const date = this.date;
         const hours = this.hours;
         this.$emit("create-sickday", {
           date,
           hours
         } as NewSickDay);
-        this.date = "";
+        this.date = new Date();
+        this.id = uuidv4();
         this.hours = 0;
         this.isCreating = true;
       }
