@@ -5,6 +5,7 @@
         <Logo />
       </router-link>
       <div class="nav-links">
+        <router-link to="/terminations-new">Terminations</router-link>
         <router-link to="/about">About us</router-link>
         <Search />
         <p>DK</p>
