@@ -2,7 +2,6 @@
   <div>
     <div class="home__header--image"></div>
     <div class="home__header--text">
-      <Logo />
       <h3>Some heading/subheading/intro of the page</h3>
     </div>
     <div class="home__buttons--container">
@@ -65,6 +64,7 @@
 <script>
 import Logo from "@/components/icons/Logo.vue";
 import NvButton from "@/components/NvButton.vue";
+import Vue from "vue";
 
 const buttonText = new Vue({
   el: "#home__buttons--cointiner",
@@ -86,7 +86,6 @@ const buttonText = new Vue({
 export default {
   name: "Home",
   components: {
-    Logo,
     NvButton
   }
 };
