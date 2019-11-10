@@ -18,6 +18,26 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .btn {
-  padding: 0.2rem 0.7rem;
+  padding: 15px 30px;
+  font-size: 16px;
+  color: white;
+  background-color: #b19971;
+  border: 2px solid #b19971;
+  transition: 0.3s;
+  border-radius: 40px;
+  width: 250px;
+  margin: 5px 10px;
+
+  &:hover {
+    background-color: white;
+    color: #b19971;
+  }
+}
+
+.button--soon {
+  &:hover {
+    background-color: #9b9b9b;
+    color: white;
+  }
 }
 </style>

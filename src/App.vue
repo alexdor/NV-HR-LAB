@@ -1,29 +1,32 @@
 <template>
   <div id="app">
     <div class="nav">
-      <router-link to="/">
+      <router-link to="/" class="nav__logo--link">
         <Logo />
       </router-link>
       <div class="nav-links">
-        <router-link to="/terminations-new">Terminations</router-link>
+        <router-link to="/terminations">Terminations</router-link>
         <router-link to="/about">About us</router-link>
         <Search />
         <p>DK</p>
       </div>
     </div>
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
 import Logo from "@/components/icons/Logo.vue";
 import Search from "@/components/icons/Search.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Logo,
-    Search
+    Search,
+    Footer
   }
 };
 </script>
@@ -40,11 +43,15 @@ body {
 }
 
 .nav {
-  padding: 30px 80px;
+  padding: 10px 80px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  .nav__logo--link {
+    height: 30px;
+  }
 
   .nav-links {
     display: flex;
