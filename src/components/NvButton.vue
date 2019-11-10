@@ -24,20 +24,15 @@ export default Vue.extend({
   background-color: #b19971;
   border: 2px solid #b19971;
   transition: 0.3s;
+  -webkit-transition: 0.3s;
   border-radius: 40px;
   width: 250px;
   margin: 5px 10px;
+  cursor: pointer;
 
   &:hover {
     background-color: white;
     color: #b19971;
-  }
-}
-
-.button--soon {
-  &:hover {
-    background-color: #9b9b9b;
-    color: white;
   }
 }
 </style>

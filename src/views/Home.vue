@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<style media="screen">
+<style media="screen" lang="scss">
 .home__header--image {
   background-image: url("../../public/img/header-image.jpg");
   background-size: cover;
@@ -40,11 +40,20 @@
   width: 55%;
   margin-top: -30px;
   background-color: white;
+
+  @media screen and (max-width: 640px) {
+    width: 80%;
+  }
 }
 
 .home__buttons--container {
   margin: 20px auto;
   padding: 30px 20px;
+
+  @media screen and (max-width: 640px) {
+    margin: auto;
+    padding: 30px 0;
+  }
 }
 
 .background--color {
@@ -58,35 +67,62 @@
   align-items: center;
   flex-wrap: wrap;
   margin: auto;
+  justify-content: center;
+
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+  }
+}
+
+.button--soon:not(:nth-child(3)) {
+  &:hover {
+    background-color: #9b9b9b;
+    border-color: #9b9b9b;
+    color: white;
+    cursor: no-drop;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+
+    span {
+      display: none;
+    }
+
+    &:before {
+      content: "Kommer snart!";
+      transition: 0.3s;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
 }
 </style>
 
 <script>
-import Logo from "@/components/icons/Logo.vue";
 import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
 
-const buttonText = new Vue({
+export default Vue.extend({
   el: "#home__buttons--cointiner",
-  data: {
-    items: [
-      { text: "Ansættelsen" },
-      { text: "Bonus" },
-      { text: "Opsigelser / Bortvisning" },
-      { text: "Persondata" },
-      { text: "Politikker" },
-      { text: "Klausuler" },
-      { text: "Podcast" },
-      { text: "HR-legal partner / Hotline" },
-      { text: "Følg Med / Ajour" }
-    ]
-  }
-});
-
-export default {
   name: "Home",
   components: {
     NvButton
+  },
+  data: function() {
+    return {
+      items: [
+        { text: "Ansættelsen" },
+        { text: "Bonus" },
+        { text: "Opsigelser / Bortvisning" },
+        { text: "Persondata" },
+        { text: "Politikker" },
+        { text: "Klausuler" },
+        { text: "Podcast" },
+        { text: "HR-legal partner / Hotline" },
+        { text: "Følg Med / Ajour" }
+      ]
+    };
   }
-};
+});
 </script>
