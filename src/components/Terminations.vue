@@ -15,12 +15,12 @@
             I nogle situationer er det relevant at give medarbejderen en skriftlig advarsel for at give medarbejderen en mulighed for at rette op på kritisable forhold.
             <br/>
             Vi kan fx hjælpe med:
-            <ul>
-                <li>
-                    rådgivning om evt. forudgående advarsel og udarbejdelse af en skriftlig advarsel, hvis relevant
-                </li>
-            </ul>
         </p>
+        <ul>
+            <li>
+                rådgivning om evt. forudgående advarsel og udarbejdelse af en skriftlig advarsel, hvis relevant
+            </li>
+        </ul>
     </div>
     <div class="home-row-3">
         <div class="">
@@ -28,21 +28,21 @@
                 Hvis det kommer til en situation, hvor medarbejderen skal opsiges kan vi hjælpe jer bedst muligt igennem processen ved fx at afklare mulige risici, vurdere opsigelsesgrundlaget og udarbejde de nødvendige dokumenter.
                 <br/>
                 Vi kan fx hjælpe med
-                <ul>
-                    <li>udarbejdelse af opsigelsesbrev og vejledning om opsigelsesprocessen</li>
-                    <li>udarbejdelse af evt. fratrædelsesaftale og rådgivning i evt. forhandlinger med medarbejderen</li>
-                </ul>
             </p>
+            <ul>
+                <li>udarbejdelse af opsigelsesbrev og vejledning om opsigelsesprocessen</li>
+                <li>udarbejdelse af evt. fratrædelsesaftale og rådgivning i evt. forhandlinger med medarbejderen</li>
+            </ul>
         </div>
         <div class="">
             <p>
                 Vi hjælper også gerne med de spørgsmål, der melder sig i opsigelsesprocessen, som fx
-                <ul>
-                    <li>hvordan håndterer vi medarbejderens ferie?</li>
-                    <li>hvordan håndterer vi skat af en fratrædelsesgodtgørelse?</li>
-                    <li>kan medarbejderen pålægges at aflevere sin bil, pc og mobiltelefon ved en fritstilling?</li>
-                </ul>
             </p>
+            <ul>
+                <li>hvordan håndterer vi medarbejderens ferie?</li>
+                <li>hvordan håndterer vi skat af en fratrædelsesgodtgørelse?</li>
+                <li>kan medarbejderen pålægges at aflevere sin bil, pc og mobiltelefon ved en fritstilling?</li>
+            </ul>
         </div>
     </div>
 
