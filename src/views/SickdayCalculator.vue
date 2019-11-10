@@ -236,10 +236,10 @@ export default Vue.extend({
     sortByHours(): void {
       if (this.sortBy == "hours") {
         this.sortBy = "hours2";
-        this.sickdays.sort((a, b) => +new Date(b.hours) - +new Date(a.hours));
+        this.sickdays.sort((a, b) => b.hours - a.hours);
       } else {
         this.sortBy = "hours";
-        this.sickdays.sort((a, b) => +new Date(a.hours) - +new Date(b.hours));
+        this.sickdays.sort((a, b) => a.hours - b.hours);
       }
     }
   }
