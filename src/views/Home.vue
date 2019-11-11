@@ -15,7 +15,7 @@
         id="home__buttons--cointiner"
         class="home__buttons--container-buttons"
       >
-        <nv-button v-for="item in items" :key="item" class="button--soon">
+        <nv-button v-for="item in items" :key="item.text" class="button--soon">
           <span>{{ item.text }}</span>
         </nv-button>
       </div>
@@ -113,7 +113,6 @@ import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
 
 export default Vue.extend({
-  el: "#home__buttons--cointiner",
   name: "Home",
   components: {
     NvButton
