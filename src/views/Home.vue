@@ -15,7 +15,7 @@
         id="home__buttons--cointiner"
         class="home__buttons--container-buttons"
       >
-        <nv-button v-for="item in items" :key="item" class="button--soon">
+        <nv-button v-for="item in items" :key="item.text" class="button--soon">
           <span>{{ item.text }}</span>
         </nv-button>
       </div>
