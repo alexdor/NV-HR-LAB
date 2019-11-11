@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts">
+import "@/assets/main.scss";
 import Vue from "vue";
 import { NewSickDay } from "./interfaces";
 import DateInput from "@/components/DateInput.vue";
@@ -59,24 +60,3 @@ export default Vue.extend({
   }
 });
 </script>
-<style lang="scss" scoped>
-.row {
-  display: table-row;
-}
-.cell {
-  display: table-cell;
-  padding: 3px 5px;
-  &.date {
-    width: 0.01%;
-  }
-}
-input {
-  border: 2px solid #ae966c;
-  border-radius: 10px;
-  text-align: left;
-  padding: 5px;
-}
-input[type="number"] {
-  width: 60px;
-}
-</style>

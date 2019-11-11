@@ -43,6 +43,7 @@ input {
   font-size: 16px;
   margin: 5px;
   color: #363535;
+  background: none;
 
   &[type="number"] {
     width: 50px;

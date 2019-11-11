@@ -9,6 +9,7 @@
         <div class="nav__links">
           <router-link to="/terminations">Opsigelser</router-link>
           <router-link to="/OB">OB</router-link>
+          <router-link to="/sickdays">Sygedagsberegner</router-link>
           <router-link to="/about">About us</router-link>
           <Search />
           <p>DK</p>

@@ -1,21 +1,21 @@
 <template>
-  <div class="ob">
-    <div class="ob__header--image"></div>
-    <div class="ob__header--text">
+  <div>
+    <div class="header-image term-header"></div>
+    <div class="header-text">
       <h2>Værktøjer</h2>
     </div>
-    <div class="ob__input--container">
+    <div class="input-container">
       <h3>Beregn opsigelsesvarsel:</h3>
-      <div class="ob__input--cols">
-        <div class="ob__input--row">
+      <div class="input-cols">
+        <div class="input-row">
           <p>Hvornår blev medarbejderen ansat?</p>
           <date-input v-model="empDate"></date-input>
         </div>
-        <div class="ob__input--row">
+        <div class="input-row">
           <p>Hvornår blev medarbejderen sagt op?</p>
           <date-input v-model="termDate" :error="error" />
         </div>
-        <div class="ob__input--row">
+        <div class="input-row">
           <p>Varsel forlænget (?)</p>
           <generic-input v-model="ext" min="0" type="number"></generic-input>
         </div>
@@ -29,77 +29,8 @@
   </div>
 </template>
 
-<style media="screen" lang="scss">
-.ob__header--image {
-  background-image: url("../../public/img/nv-stamped.jpg");
-  background-size: cover;
-  height: 55vh;
-  background-position: 50% 65%;
-}
-
-.ob__header--text {
-  margin: auto;
-  padding: 5px;
-  width: 55%;
-  margin-top: -30px;
-  background-color: white;
-
-  @media screen and (max-width: 640px) {
-    width: 80%;
-  }
-}
-
-.ob__input--container {
-  .ob__input--cols {
-    margin: auto;
-    margin-top: 25px;
-    max-width: 550px;
-
-    .ob__input--row {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      margin: 8px 0;
-
-      @media screen and (max-width: 640px) {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        p {
-          margin-bottom: 5px;
-        }
-      }
-
-      input {
-        @media screen and (max-width: 640px) {
-          width: 255px;
-        }
-      }
-
-      input[type="number"] {
-        width: 153px;
-
-        @media screen and (max-width: 640px) {
-          width: 195px;
-        }
-      }
-    }
-  }
-
-  .btn {
-    margin-top: 25px;
-  }
-}
-
-.ob__summary {
-  background-color: #f8f3f0;
-  padding: 20px;
-  margin-top: 40px;
-}
-</style>
-
 <script lang="ts">
+import "@/assets/main.scss";
 import { calculate } from "@/tools/OB/OBCalculator";
 import DateInput from "@/components/DateInput.vue";
 import GenericInput from "@/components/GenericInput.vue";

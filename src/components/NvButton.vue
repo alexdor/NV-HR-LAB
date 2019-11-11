@@ -34,5 +34,9 @@ export default Vue.extend({
     background-color: white;
     color: #b19971;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 </style>
