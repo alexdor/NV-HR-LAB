@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>© Norrbom Vinding 2019</p>
+    <p>© Norrbom Vinding {{ new Date().getFullYear() }}</p>
   </div>
 </template>
 
