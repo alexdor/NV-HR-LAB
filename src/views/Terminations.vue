@@ -50,13 +50,13 @@
             </li>
           </ul>
         </div>
-        <Legal />
+        <Pen />
       </div>
     </div>
 
     <div class="info-row background-color">
       <div class="info-row-content">
-        <Legal />
+        <Law />
         <div class="info-row-text">
           <p>
             Vi hjælper også gerne med de spørgsmål, der melder sig i
@@ -78,13 +78,16 @@
 
 <script lang="ts">
 import "@/assets/main.scss";
-// import Pen from "@/components/icons/Pen.vue";
+import Pen from "@/components/icons/Pen.vue";
 import Legal from "@/components/icons/Legal.vue";
+import Law from "@/components/icons/Law.vue";
+
 export default {
   name: "Termination",
   components: {
-    // Pen,
-    Legal
+    Pen,
+    Legal,
+    Law
   }
 };
 </script>
