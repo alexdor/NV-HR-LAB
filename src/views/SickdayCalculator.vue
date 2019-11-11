@@ -49,13 +49,13 @@
         </div>
       </div>
       <div class="sb-table-below">
-        <div class="sb-table-add">
-          <nv-button class="table-add-button">+</nv-button>
-          <a><h3>Add new</h3></a>
-        </div>
-        <div>
+        <div class="sb-table-total">
           <b>Total Hours: </b>
           {{ sickdays.reduce((a, b) => a + Number(b.hours), 0) }}
+        </div>
+        <div class="sb-table-add">
+          <a><h3>Add to table</h3></a>
+          <nv-button class="table-add-button">+</nv-button>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@
 
 <style lang="scss" scoped>
 .table-add-button {
-  padding: 1px 7px 3px 7px;
+  padding: 1px 6px 3px 6px;
   width: auto;
   height: auto;
 

@@ -17,7 +17,7 @@
 
 <style lang="scss" scoped>
 .table-delete-button {
-  padding: 1px 7px 3px 7px;
+  padding: 0px 6px 2px 6px;
   width: auto;
   height: auto;
 
