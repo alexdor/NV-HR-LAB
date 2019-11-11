@@ -7,7 +7,8 @@
       <!-- Desktop nav -->
       <nav class="nav nav__links--desktop">
         <div class="nav__links">
-          <router-link to="/terminations">Terminations</router-link>
+          <router-link to="/terminations">Opsigelser</router-link>
+          <router-link to="/OB">OB</router-link>
           <router-link to="/about">About us</router-link>
           <Search />
           <p>DK</p>

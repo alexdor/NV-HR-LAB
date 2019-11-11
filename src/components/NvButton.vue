@@ -18,7 +18,7 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .btn {
-  padding: 15px 30px;
+  padding: 11px 30px;
   font-size: 16px;
   color: white;
   background-color: #b19971;

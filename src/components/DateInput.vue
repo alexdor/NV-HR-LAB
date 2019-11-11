@@ -30,19 +30,26 @@ export default Vue.extend({
   display: inline-flex;
 }
 .error .date-input {
-  /* TODO: imporve the styling */
   /* TODO: Add tooltip with an error */
-  border: 1px solid red;
-  padding: 0.2rem;
+  border: 2px solid #c7181e;
 }
 
 input {
   border: 2px solid #ae966c;
-  border-radius: 10px;
   text-align: left;
-  padding: 5px;
-}
-input[type="number"] {
-  width: 60px;
+  padding: 11px 30px;
+  width: 220px;
+  border-radius: 30px;
+  font-size: 16px;
+  margin: 5px;
+  color: #363535;
+
+  &[type="number"] {
+    width: 50px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
 }
 </style>

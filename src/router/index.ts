@@ -35,6 +35,12 @@ const routes = [
       import(
         /* webpackChunkName: "sick-days" */ "../views/SickdayCalculator.vue"
       )
+  },
+  {
+    path: "/terminations",
+    name: "Terminations",
+    component: () =>
+      import(/* webpackChunkName: "terminations" */ "../views/Terminations.vue")
   }
 ];
 

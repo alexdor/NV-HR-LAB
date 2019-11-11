@@ -2,7 +2,7 @@
   <div>
     <div class="home__header--image"></div>
     <div class="home__header--text">
-      <h3>Some heading/subheading/intro of the page</h3>
+      <h2>Some heading/subheading/intro of the page</h2>
     </div>
     <div class="home__buttons--container">
       <p>Tryk en af følgende emner for at lære mere</p>
