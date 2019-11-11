@@ -113,7 +113,6 @@ import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
 
 export default Vue.extend({
-  el: "#home__buttons--cointiner",
   name: "Home",
   components: {
     NvButton
