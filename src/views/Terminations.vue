@@ -71,7 +71,7 @@
 import Pen from "@/components/icons/Pen.vue";
 import Legal from "@/components/icons/Legal.vue";
 export default {
-  name: "Pen",
+  name: "Termination",
   components: {
     Pen,
     Legal
