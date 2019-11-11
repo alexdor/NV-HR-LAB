@@ -2,7 +2,12 @@
   <div>
     <div class="home__header--image"></div>
     <div class="home__header--text">
-      <h2>Some heading/subheading/intro of the page</h2>
+      <h2>Some heading/subheading/intro for the site</h2>
+      <img
+        src="../../public/img/icons/arrow.svg"
+        alt="Arrow down indicating scroll"
+        class="arrow--down"
+      />
     </div>
     <div class="home__buttons--container">
       <p>Tryk en af følgende emner for at lære mere</p>
@@ -27,6 +32,11 @@
 </template>
 
 <style media="screen" lang="scss">
+.arrow--down {
+  transform: translateY(0) rotate(90deg);
+  margin-top: 15px;
+}
+
 .home__header--image {
   background-image: url("../../public/img/header-image.jpg");
   background-size: cover;
@@ -47,11 +57,10 @@
 }
 
 .home__buttons--container {
-  margin: 20px auto;
+  margin: auto;
   padding: 30px 20px;
 
   @media screen and (max-width: 640px) {
-    margin: auto;
     padding: 30px 0;
   }
 }
