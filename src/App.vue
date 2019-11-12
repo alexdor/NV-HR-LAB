@@ -5,7 +5,7 @@
         <Logo />
       </router-link>
       <div class="nav-links">
-        <router-link to="/about">Om HR Lab</router-link>
+        <router-link to="/om-hr-lab">Om HR Lab</router-link>
         <Search />
         <p>DK</p>
       </div>
