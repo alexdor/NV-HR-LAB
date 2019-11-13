@@ -12,7 +12,12 @@
     <div class="home-buttons-container">
       <p>Tryk en af følgende emner for at lære mere</p>
       <div id="home__buttons--cointiner" class="home-buttons-container-buttons">
-        <nv-button v-for="item in items" :key="item.text" class="button-soon">
+        <nv-button
+          v-for="item in items"
+          :key="item.text"
+          class="button-soon"
+          @click="$router.push(item.route)"
+        >
           <span>{{ item.text }}</span>
         </nv-button>
       </div>
@@ -24,6 +29,7 @@
           v-for="item in items2"
           :key="item.text"
           class="button-soon-section2"
+          @click="$router.push(item.route)"
         >
           <span>{{ item.text }}</span>
         </nv-button>
@@ -32,7 +38,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import "@/styles/main.scss";
 import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
@@ -47,7 +53,7 @@ export default Vue.extend({
       items: [
         { text: "Ansættelsen" },
         { text: "Bonus" },
-        { text: "Opsigelser / Bortvisning" },
+        { text: "Opsigelser / Bortvisning", route: "opsigelser" },
         { text: "Persondata" },
         { text: "Politikker" },
         { text: "Klausuler" },
@@ -56,11 +62,67 @@ export default Vue.extend({
         { text: "Følg Med / Ajour" }
       ],
       items2: [
-        { text: "Opsigelsesvarsel" },
-        { text: "Sygedagsberegner" },
+        { text: "Opsigelsesvarsel", route: "opsigelseberegner" },
+        { text: "Sygedagsberegner", route: "sygedagsberegner" },
         { text: "§7U" }
       ]
     };
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.home-header {
+  background-image: url("../../public/img/header-image.jpg");
+  height: 75vh;
+  background-position: 50% 5%;
+}
+
+.home-buttons-container {
+  margin: auto;
+  padding: 30px 20px;
+
+  @media screen and (max-width: 640px) {
+    padding: 30px 0;
+  }
+
+  &-buttons {
+    max-width: 850px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+
+    @media screen and (max-width: 640px) {
+      flex-direction: column;
+    }
+  }
+}
+
+.button-soon:not(:nth-child(3)),
+.button-soon-section2:nth-child(3) {
+  &:hover {
+    background-color: #9b9b9b;
+    border-color: #9b9b9b;
+    color: white;
+    cursor: no-drop;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+
+    span {
+      display: none;
+    }
+
+    &:before {
+      content: "Kommer snart!";
+      transition: 0.3s;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+</style>
