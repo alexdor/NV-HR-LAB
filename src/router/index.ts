@@ -17,21 +17,21 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
-    path: "/OB",
+    path: "/opsigelseberegner",
     name: "Opsigelses Beregner",
     component: () => import(/* webpackChunkName: "ob" */ "../views/OB.vue")
   },
   {
-    path: "/sickdays",
-    name: "Sick Days",
+    path: "/sygedagsberegner",
+    name: "Sygedagsberegner",
     component: () =>
       import(
         /* webpackChunkName: "sick-days" */ "../views/SickdayCalculator.vue"
       )
   },
   {
-    path: "/terminations",
-    name: "Terminations",
+    path: "/opsigelser",
+    name: "Opsigelser",
     component: () =>
       import(/* webpackChunkName: "terminations" */ "../views/Terminations.vue")
   }

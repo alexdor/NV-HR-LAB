@@ -7,9 +7,9 @@
       <!-- Desktop nav -->
       <nav class="nav nav__links--desktop">
         <div class="nav__links">
-          <router-link to="/terminations">Opsigelser</router-link>
-          <router-link to="/OB">OB</router-link>
-          <router-link to="/sickdays">Sygedagsberegner</router-link>
+          <router-link to="/opsigelser">Opsigelser</router-link>
+          <router-link to="/opsigelseberegner">Opsigelses Beregner</router-link>
+          <router-link to="/sygedagsberegner">Sygedagsberegner</router-link>
           <router-link to="/om-hr-lab">Om HR Lab</router-link>
           <Search />
           <p>DK</p>
@@ -24,7 +24,7 @@
           <span></span>
           <span></span>
           <ul id="menu" class="nav__links">
-            <router-link to="/terminations">Terminations</router-link>
+            <router-link to="/opsigelser">Opsigelser</router-link>
             <router-link to="/om-hr-lab">Om HR Lab</router-link>
             <Search />
             <p>DK</p>
