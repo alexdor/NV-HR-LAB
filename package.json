@@ -1,6 +1,5 @@
 {
   "name": "nv-hr-lab",
-  "homepage": "https://taigacompany.github.io/NV-HR-LAB",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,12 +33,15 @@
     "eslint-plugin-vue": "^6.0.1",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
+    "prerender-spa-plugin": "^3.2.1",
     "prettier": "^1.19.1",
     "sass": "^1.23.3",
     "sass-loader": "^8.0.0",
     "typescript": "~3.5.3",
+    "vue-cli-plugin-prerender-spa": "^1.1.6",
     "vue-template-compiler": "^2.6.10"
   },
+  "homepage": "https://taigacompany.github.io/NV-HR-LAB",
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

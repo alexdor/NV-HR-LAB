@@ -1,0 +1,30 @@
+[
+  {
+    "prerender": true,
+    "path": "/",
+    "name": "home",
+    "view": "Home.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/om-hr-lab",
+    "name": "Om HR Lab",
+    "view": "About.vue"
+  },
+  {
+    "path": "/opsigelseberegner",
+    "name": "Opsigelses Beregner",
+    "view": "OB.vue"
+  },
+  {
+    "path": "/sygedagsberegner",
+    "name": "Sygedagsberegner",
+    "view": "SickdayCalculator.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/opsigelser",
+    "name": "Opsigelser",
+    "view": "Terminations.vue"
+  }
+]
