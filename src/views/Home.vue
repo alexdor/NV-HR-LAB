@@ -6,7 +6,7 @@
       <img
         src="../../public/img/icons/arrow.svg"
         alt="Arrow down indicating scroll"
-        class="arrow-down"
+        class="arrow-down pointer"
         @click="scrollToContent"
       />
     </div>

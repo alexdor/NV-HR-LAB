@@ -55,7 +55,7 @@
           <b>Total Hours: </b>
           {{ sickdays.reduce((a, b) => a + Number(b.hours), 0) }}
         </div>
-        <div class="sb-table-add" @click="createSickday">
+        <div class="sb-table-add pointer" @click="createSickday">
           <h3>Add to table</h3>
           <nv-button class="table-add-button">+</nv-button>
         </div>

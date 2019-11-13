@@ -57,11 +57,16 @@ body {
   margin: 0;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   text-align: center;
   color: #ae966c;
   font-family: Avenir, Helvetica Neue, Helvetica, sans-serif;
+  min-height: 100vh;
 }
 
 .nav__container {
