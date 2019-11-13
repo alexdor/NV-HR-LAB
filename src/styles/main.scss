@@ -79,61 +79,6 @@ body {
   margin-top: 15px;
 }
 
-/* HOME */
-.home-header {
-  background-image: url("../../public/img/header-image.jpg");
-  height: 75vh;
-  background-position: 50% 5%;
-}
-
-.home-buttons-container {
-  margin: auto;
-  padding: 30px 20px;
-
-  @media screen and (max-width: 640px) {
-    padding: 30px 0;
-  }
-
-  .home-buttons-container-buttons {
-    max-width: 850px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: auto;
-    justify-content: center;
-
-    @media screen and (max-width: 640px) {
-      flex-direction: column;
-    }
-  }
-
-  .button-soon:not(:nth-child(3)),
-  .button-soon-section2:nth-child(3) {
-    &:hover {
-      background-color: #9b9b9b;
-      border-color: #9b9b9b;
-      color: white;
-      cursor: no-drop;
-      transition: 0.3s;
-      -webkit-transition: 0.3s;
-
-      span {
-        display: none;
-      }
-
-      &:before {
-        content: "Kommer snart!";
-        transition: 0.3s;
-      }
-    }
-
-    &:focus {
-      outline: 0;
-    }
-  }
-}
-
 /* STATIC INFO PAGES */
 .info {
   text-align: left;
