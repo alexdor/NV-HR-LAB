@@ -1,16 +1,23 @@
 <template>
   <div class="row">
+    <div class="cell hours">
+      <generic-input
+        v-model="sickday.hours"
+        min="0"
+        type="number"
+        @enter="sendForm()"
+      />
+    </div>
     <div class="cell date">
-      <date-input v-model="sickday.date"></date-input>
+      <date-input v-model="sickday.date" @input="sendForm()"></date-input>
     </div>
     <div class="cell weekday">{{ weekday }}</div>
-    <div class="cell hours">
-      <generic-input v-model="sickday.hours" min="0" type="number" />
-    </div>
     <div class="cell days">{{ days }}</div>
     <div class="cell cumulative-days">{{ cumulativeDays }}</div>
     <div class="cell remove-cell align-center">
-      <nv-button class="table-delete-button">x</nv-button>
+      <nv-button class="table-delete-button" @click="deleteSickDay"
+        >x</nv-button
+      >
     </div>
   </div>
 </template>
@@ -26,10 +33,19 @@
     background-color: #b19971;
   }
 }
+
+.row {
+  display: table-row;
+}
+.cell {
+  display: table-cell;
+  padding: 3px 5px;
+  letter-spacing: 0.6px;
+  width: 2%;
+}
 </style>
 
 <script lang="ts">
-import "@/assets/main.scss";
 import Vue from "vue";
 import GenericInput from "@/components/GenericInput.vue";
 import DateInput from "@/components/DateInput.vue";
@@ -66,8 +82,11 @@ export default Vue.extend({
     }
   },
   methods: {
-    deleteTodo(sickday: string): void {
-      this.$emit("delete-todo", sickday);
+    deleteSickDay(): void {
+      this.$emit("delete", this.sickday.id);
+    },
+    sendForm(): void {
+      this.$emit("create-sickday", this.sickday.id);
     }
   }
 });

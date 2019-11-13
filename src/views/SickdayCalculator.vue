@@ -21,13 +21,13 @@
       <div class="table">
         <div class="tableHeader">
           <div class="row">
+            <div class="cell" @click="sortByHours()">
+              {{ text[language].hours }}
+            </div>
             <div class="cell" @click="sortByDate()">
               {{ text[language].date }}
             </div>
             <div class="cell">{{ text[language].day }}</div>
-            <div class="cell" @click="sortByHours()">
-              {{ text[language].hours }}
-            </div>
             <div class="cell">{{ text[language].days }}</div>
             <div class="cell">{{ text[language].daysSick }}</div>
           </div>
@@ -36,6 +36,7 @@
           <sickday
             v-for="(sickday, index) in sickdays"
             :key="sickday.id"
+            ref="sickdays"
             :sickday.sync="sickday"
             :language="language"
             :work-hours.sync="workHours"
@@ -44,8 +45,9 @@
                 .slice(0, index + 1)
                 .reduce((total, next) => total + Number(next.hours), 0)
             "
+            @create-sickday="createSickday"
+            @delete="deleteSickDay"
           ></sickday>
-          <create-sickday @create-sickday="createSickday"></create-sickday>
         </div>
       </div>
       <div class="sb-table-below">
@@ -53,8 +55,8 @@
           <b>Total Hours: </b>
           {{ sickdays.reduce((a, b) => a + Number(b.hours), 0) }}
         </div>
-        <div class="sb-table-add">
-          <a><h3>Add to table</h3></a>
+        <div class="sb-table-add" @click="createSickday">
+          <h3>Add to table</h3>
           <nv-button class="table-add-button">+</nv-button>
         </div>
       </div>
@@ -73,29 +75,100 @@
     background-color: #b19971;
   }
 }
+
+.sb-header {
+  background-image: url("../../public/img/sickleave.jpg");
+  background-position: 50% 70%;
+}
+
+.sb-table-container {
+  background-color: $bgColor;
+  padding: 20px;
+  margin: 20px auto;
+
+  .sb-table-below,
+  .table {
+    max-width: 850px;
+    text-align: left;
+    margin: auto;
+  }
+
+  .table {
+    border-bottom: $borderStyle;
+    padding-bottom: 20px;
+    display: table;
+
+    .tableHeader {
+      display: table-header-group;
+      font-weight: bold;
+
+      .row {
+        padding: 12px 5px;
+      }
+    }
+
+    .tableBody {
+      display: table-row-group;
+    }
+  }
+
+  .sb-table-below {
+    display: flex;
+    flex-direction: row;
+    max-width: 850px;
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+
+    .sb-table-add {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 15px;
+    }
+
+    .sb-table-total {
+      padding: 0 15px;
+    }
+  }
+}
+.row {
+  display: table-row;
+}
+.cell {
+  display: table-cell;
+  padding: 3px 5px;
+  letter-spacing: 0.6px;
+  width: 2%;
+}
 </style>
 
 <script lang="ts">
-import "@/assets/main.scss";
+import "@/styles/main.scss";
 import Sickday from "@/tools/SickDays/Sickday.vue";
-import CreateSickday from "@/tools/SickDays/CreateSickday.vue";
-import { NewSickDay } from "@/tools/SickDays/interfaces";
+import { SickDay } from "@/tools/SickDays/interfaces";
 import GenericInput from "@/components/GenericInput.vue";
 import NvButton from "@/components/NvButton.vue";
+import { uuidv4 } from "@/helpers/uuid";
 import Vue from "vue";
-
+function getNewDay(): SickDay {
+  return {
+    id: uuidv4(),
+    date: new Date(),
+    hours: 0
+  };
+}
 export default Vue.extend({
   components: {
     Sickday,
     GenericInput,
-    CreateSickday,
     NvButton
   },
   props: { language: { type: String, default: "en" } },
   data() {
     return {
       sortBy: "none",
-      sickdays: [] as NewSickDay[],
+      sickdays: [getNewDay()],
       workHours: 7.4,
       weekdays: [
         "Sunday",
@@ -123,12 +196,34 @@ export default Vue.extend({
           daysSick: "Dage Sygefravær",
           workHours: "Medarbejderens daglig arbejdstid"
         }
-      }
+      },
+      currentDay: getNewDay(),
+      hoursError: false
     };
   },
   methods: {
-    createSickday(newSickday: NewSickDay): void {
-      this.sickdays.push(newSickday);
+    createSickday(id: string): void {
+      const index = this.sickdays.findIndex(sickDay => sickDay.id === id);
+      // create new sickday, if user click the button or presses enter on the last element
+      if (index === -1 || index === this.sickdays.length - 1) {
+        this.sickdays.push(getNewDay());
+      }
+
+      // move focus to the input of the next sickday
+      this.$nextTick(() => {
+        const sickdays = this.$refs.sickdays as any[];
+        const input =
+          index === -1 ? sickdays[sickdays.length - 1] : sickdays[index + 1];
+        if (!input) {
+          return;
+        }
+        input.$children[0].$el.focus();
+      });
+    },
+    deleteSickDay(id: string): void {
+      this.sickdays = this.sickdays.filter(
+        (sickday: SickDay) => sickday.id !== id
+      );
     },
     sortByDate(): void {
       if (this.sortBy == "date") {

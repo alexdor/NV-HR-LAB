@@ -248,4 +248,24 @@ body {
 #menuToggle input:checked ~ ul {
   transform: none;
 }
+
+input {
+  border: 2px solid #ae966c;
+  text-align: left;
+  padding: 11px 30px;
+  width: 220px;
+  border-radius: 30px;
+  font-size: 16px;
+  margin: 5px;
+  color: #363535;
+  background: none;
+
+  &[type="number"] {
+    width: 50px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
 </style>
