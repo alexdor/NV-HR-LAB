@@ -4,6 +4,7 @@
       <generic-input
         v-model="sickday.hours"
         min="0"
+        step="0.01"
         type="number"
         @enter="sendForm()"
       />

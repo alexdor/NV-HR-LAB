@@ -151,13 +151,14 @@ import GenericInput from "@/components/GenericInput.vue";
 import NvButton from "@/components/NvButton.vue";
 import { uuidv4 } from "@/helpers/uuid";
 import Vue from "vue";
-function getNewDay(): SickDay {
+function getNewDay(hours: number): SickDay {
   return {
     id: uuidv4(),
     date: new Date(),
-    hours: 0
+    hours: hours || 0
   };
 }
+const defaultWorkHours = 7.4;
 export default Vue.extend({
   components: {
     Sickday,
@@ -168,8 +169,8 @@ export default Vue.extend({
   data() {
     return {
       sortBy: "none",
-      sickdays: [getNewDay()],
-      workHours: 7.4,
+      sickdays: [getNewDay(defaultWorkHours)],
+      workHours: defaultWorkHours,
       weekdays: [
         "Sunday",
         "Monday",
@@ -196,9 +197,7 @@ export default Vue.extend({
           daysSick: "Dage Sygefravær",
           workHours: "Medarbejderens daglig arbejdstid"
         }
-      },
-      currentDay: getNewDay(),
-      hoursError: false
+      }
     };
   },
   methods: {
@@ -206,7 +205,7 @@ export default Vue.extend({
       const index = this.sickdays.findIndex(sickDay => sickDay.id === id);
       // create new sickday, if user click the button or presses enter on the last element
       if (index === -1 || index === this.sickdays.length - 1) {
-        this.sickdays.push(getNewDay());
+        this.sickdays.push(getNewDay(this.workHours));
       }
 
       // move focus to the input of the next sickday
