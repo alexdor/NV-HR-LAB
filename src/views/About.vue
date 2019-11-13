@@ -1,6 +1,9 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <p>Test Deploy</p>
+    <h1>Om HR Lab</h1>
+    <p>
+      HR Lab er en værktøjskasse for dig der... <br />
+      Her kunne der stå noget tekst om HR Lab.
+    </p>
   </div>
 </template>

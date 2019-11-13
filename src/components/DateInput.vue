@@ -3,6 +3,8 @@
     :class="[error ? 'error' : '', 'datepicker']"
     :typeable="true"
     :monday-first="true"
+    :full-month-name="true"
+    :language="da"
     :value="value"
     :required="true"
     input-class="date-input"
@@ -13,7 +15,7 @@
 </template>
 <script lang="ts">
 import Datepicker from "vuejs-datepicker";
-
+import { da } from "vuejs-datepicker/dist/locale";
 import Vue from "vue";
 export default Vue.extend({
   name: "DateInput",
@@ -21,6 +23,11 @@ export default Vue.extend({
   props: {
     value: { type: [Date, String] },
     error: { type: Boolean, default: false }
+  },
+  data() {
+    return {
+      da
+    };
   }
 });
 </script>

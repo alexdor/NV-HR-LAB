@@ -10,7 +10,7 @@
           <router-link to="/terminations">Opsigelser</router-link>
           <router-link to="/OB">OB</router-link>
           <router-link to="/sickdays">Sygedagsberegner</router-link>
-          <router-link to="/about">About us</router-link>
+          <router-link to="/om-hr-lab">Om HR Lab</router-link>
           <Search />
           <p>DK</p>
         </div>
@@ -25,7 +25,7 @@
           <span></span>
           <ul id="menu" class="nav__links">
             <router-link to="/terminations">Terminations</router-link>
-            <router-link to="/about">About us</router-link>
+            <router-link to="/om-hr-lab">Om HR Lab</router-link>
             <Search />
             <p>DK</p>
           </ul>
