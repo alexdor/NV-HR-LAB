@@ -32,7 +32,7 @@
         </div>
       </nav>
     </div>
-    <router-view />
+    <router-view class="content" />
     <Footer />
   </div>
 </template>
@@ -67,6 +67,11 @@ body {
   color: #ae966c;
   font-family: Avenir, Helvetica Neue, Helvetica, sans-serif;
   min-height: 100vh;
+  position: relative;
+}
+
+.content {
+  padding-bottom: $footerHeight;
 }
 
 .nav__container {
