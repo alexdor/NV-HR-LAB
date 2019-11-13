@@ -7,9 +7,10 @@
         src="../../public/img/icons/arrow.svg"
         alt="Arrow down indicating scroll"
         class="arrow-down"
+        @click="scrollToContent"
       />
     </div>
-    <div class="home-buttons-container">
+    <div ref="content" class="home-buttons-container">
       <p>Tryk en af følgende emner for at lære mere</p>
       <div id="home__buttons--cointiner" class="home-buttons-container-buttons">
         <nv-button
@@ -67,6 +68,16 @@ export default Vue.extend({
         { text: "§7U" }
       ]
     };
+  },
+  methods: {
+    scrollToContent() {
+      this.$nextTick(() => {
+        window.scrollTo({
+          top: (this.$refs.content as any).offsetTop,
+          behavior: "smooth"
+        });
+      });
+    }
   }
 });
 </script>
@@ -123,6 +134,14 @@ export default Vue.extend({
 
   &:focus {
     outline: 0;
+  }
+}
+
+.arrow-down {
+  transform: translateY(0) rotate(90deg);
+  margin-top: 15px;
+  &:hover {
+    transform: scale(1.5) translateY(0) rotate(90deg);
   }
 }
 </style>
