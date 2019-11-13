@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import "@/assets/main.scss";
+import "@/styles/main.scss";
 import { calculate } from "@/tools/OB/OBCalculator";
 import DateInput from "@/components/DateInput.vue";
 import GenericInput from "@/components/GenericInput.vue";
