@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import "@/assets/main.scss";
+import "@/styles/main.scss";
 import Pen from "@/components/icons/Pen.vue";
 import Legal from "@/components/icons/Legal.vue";
 import Law from "@/components/icons/Law.vue";

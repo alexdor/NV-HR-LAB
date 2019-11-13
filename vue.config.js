@@ -4,5 +4,12 @@ module.exports = {
       ? process.env.NETLIFY
         ? "/"
         : "/NV-HR-LAB/"
-      : "/"
+      : "/",
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: `@import "@/styles/_variables.scss";`
+      }
+    }
+  }
 };

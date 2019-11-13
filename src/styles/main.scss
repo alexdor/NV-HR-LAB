@@ -1,9 +1,4 @@
-/* VARIABLES */
-$bgColor: #f8f3f0;
-$brown: #b19971;
-$borderStyle: 2px dotted;
-
-/* -------------------------------------- */
+@import "./variables";
 
 body {
   color: $brown;
@@ -224,72 +219,4 @@ body {
   background-color: $bgColor;
   padding: 20px;
   margin-top: 40px;
-}
-
-/* SICK DAYS */
-.sb-header {
-  background-image: url("../../public/img/sickleave.jpg");
-  background-position: 50% 70%;
-}
-
-.sb-table-container {
-  background-color: $bgColor;
-  padding: 20px;
-  margin: 20px auto;
-
-  .sb-table-below,
-  .table {
-    max-width: 850px;
-    text-align: left;
-    margin: auto;
-  }
-
-  .table {
-    border-bottom: $borderStyle;
-    padding-bottom: 20px;
-    display: table;
-
-    .tableHeader {
-      display: table-header-group;
-      font-weight: bold;
-
-      .row {
-        padding: 12px 5px;
-      }
-    }
-
-    .tableBody {
-      display: table-row-group;
-    }
-  }
-
-  .sb-table-below {
-    display: flex;
-    flex-direction: row;
-    max-width: 850px;
-    margin: auto;
-    justify-content: space-between;
-    align-items: center;
-
-    .sb-table-add {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding: 0 15px;
-    }
-
-    .sb-table-total {
-      padding: 0 15px;
-    }
-  }
-
-  .row {
-    display: table-row;
-  }
-  .cell {
-    display: table-cell;
-    padding: 3px 5px;
-    letter-spacing: 0.6px;
-    width: 2%;
-  }
 }

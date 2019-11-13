@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import "@/assets/main.scss";
+import "@/styles/main.scss";
 import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
 
