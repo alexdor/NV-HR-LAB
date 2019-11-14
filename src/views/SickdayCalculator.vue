@@ -53,7 +53,7 @@
       <div class="sb-table-below">
         <div class="sb-table-total">
           <b>Total Hours: </b>
-          {{ sickdays.reduce((a, b) => a + Number(b.hours), 0) }}
+          {{ sickdays.reduce((a, b) => a + Number(b.hours), 0).toFixed(2) }}
         </div>
         <div class="sb-table-add pointer" @click="createSickday">
           <h3>Add to table</h3>
