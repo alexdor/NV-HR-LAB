@@ -3,7 +3,7 @@
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 935.95 113.39"
     fill="#ae966c"
-    width="230px"
+    class="logo__svg"
   >
     <title id="iconName">{{ iconName }}</title>
     <g>
@@ -65,6 +65,15 @@
   </svg>
 </template>
 
+<style media="screen" lang="scss">
+.logo__svg {
+  width: 230px;
+
+  @media screen and (max-width: 640px) {
+    width: 130px;
+  }
+}
+</style>
 <script>
 export default {
   props: {

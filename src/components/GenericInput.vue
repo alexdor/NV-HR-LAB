@@ -3,7 +3,7 @@
     :value="value"
     :type="type"
     @input="$emit('input', $event.target.value)"
-    @keyup.enter="$emit('keyup.enter', $event)"
+    @keyup.enter="$emit('enter', $event)"
     @blur="$emit('blur', $event)"
   />
 </template>

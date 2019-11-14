@@ -1,46 +1,26 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import routes from "./routes.json";
 
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: Home
-  },
-  {
-    path: "/om-hr-lab",
-    name: "Om HR Lab",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
-  },
-  {
-    path: "/OB",
-    name: "Opsigelses Beregner",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "ob" */ "../views/OB.vue")
-  },
-  {
-    path: "/sickdays",
-    name: "Sick Days",
-    component: () =>
-      import(
-        /* webpackChunkName: "sick-days" */ "../views/SickdayCalculator.vue"
-      )
-  }
-];
+interface Route {
+  prerender?: boolean;
+  path: string;
+  name: string;
+  view: string;
+}
 
 const router = new VueRouter({
   mode: "history",
-  routes
+  scrollBehavior(_to, _from, savedPosition) {
+    return savedPosition ? savedPosition : { x: 0, y: 0 };
+  },
+  routes: routes.map((route: Route) => ({
+    ...route,
+    component: () => import(`../views/${route.view}`)
+  }))
 });
 
 export default router;

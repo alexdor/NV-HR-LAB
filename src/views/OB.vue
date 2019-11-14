@@ -1,16 +1,36 @@
 <template>
-  <div class="home">
-    <date-input v-model="empDate"></date-input>
-    <date-input v-model="termDate" :error="error" />
-    <generic-input v-model="ext" min="0" type="number"></generic-input>
-    <nv-button @click="calculate()">Beregn!</nv-button>
-
-    <p>{{ output.terminationNotice }}</p>
-    <p>{{ output.terminationDate.toDateString() }}</p>
+  <div>
+    <div class="header-image term-header"></div>
+    <div class="header-text">
+      <h2>Værktøjer</h2>
+    </div>
+    <div class="input-container">
+      <h3>Beregn opsigelsesvarsel:</h3>
+      <div class="input-cols">
+        <div class="input-row">
+          <p>Hvornår blev medarbejderen ansat?</p>
+          <date-input v-model="empDate"></date-input>
+        </div>
+        <div class="input-row">
+          <p>Hvornår blev medarbejderen sagt op?</p>
+          <date-input v-model="termDate" :error="error" />
+        </div>
+        <div class="input-row">
+          <p>Varsel forlænget (?)</p>
+          <generic-input v-model="ext" min="0" type="number"></generic-input>
+        </div>
+        <nv-button @click="calculate()">Beregn</nv-button>
+      </div>
+    </div>
+    <div class="ob__summary">
+      <h4>{{ output.terminationNotice }}</h4>
+      <h4>{{ output.terminationDate.toDateString() }}</h4>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import "@/styles/main.scss";
 import { calculate } from "@/tools/OB/OBCalculator";
 import DateInput from "@/components/DateInput.vue";
 import GenericInput from "@/components/GenericInput.vue";
