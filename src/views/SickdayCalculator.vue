@@ -21,10 +21,10 @@
       <div class="table">
         <div class="tableHeader">
           <div class="row">
-            <div class="cell" @click="sortByHours()">
+            <div class="cell pointer" @click="sortByHours()">
               {{ text[language].hours }}
             </div>
-            <div class="cell" @click="sortByDate()">
+            <div class="cell pointer" @click="sortByDate()">
               {{ text[language].date }}
             </div>
             <div class="cell">{{ text[language].day }}</div>
@@ -53,7 +53,7 @@
       <div class="sb-table-below">
         <div class="sb-table-total">
           <b>Total Hours: </b>
-          {{ sickdays.reduce((a, b) => a + Number(b.hours), 0) }}
+          {{ sickdays.reduce((a, b) => a + Number(b.hours), 0).toFixed(2) }}
         </div>
         <div class="sb-table-add pointer" @click="createSickday">
           <h3>Add to table</h3>
@@ -236,10 +236,10 @@ export default Vue.extend({
     sortByHours(): void {
       if (this.sortBy == "hours") {
         this.sortBy = "hours2";
-        this.sickdays.sort((a, b) => +new Date(b.hours) - +new Date(a.hours));
+        this.sickdays.sort((a, b) => b.hours - a.hours);
       } else {
         this.sortBy = "hours";
-        this.sickdays.sort((a, b) => +new Date(a.hours) - +new Date(b.hours));
+        this.sickdays.sort((a, b) => a.hours - b.hours);
       }
     }
   }
