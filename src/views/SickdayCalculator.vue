@@ -21,10 +21,10 @@
       <div class="table">
         <div class="tableHeader">
           <div class="row">
-            <div class="cell" @click="sortByHours()">
+            <div class="cell pointer" @click="sortByHours()">
               {{ text[language].hours }}
             </div>
-            <div class="cell" @click="sortByDate()">
+            <div class="cell pointer" @click="sortByDate()">
               {{ text[language].date }}
             </div>
             <div class="cell">{{ text[language].day }}</div>
