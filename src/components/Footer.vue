@@ -5,6 +5,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "@/styles/main.scss";
+
 .footer {
   position: absolute;
   bottom: 0;

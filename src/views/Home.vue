@@ -2,7 +2,13 @@
   <div>
     <div class="header-image home-header"></div>
     <div class="header-text">
-      <h2>Some heading/subheading/intro for the site</h2>
+      <div class="slide-transition">
+        <Logo />
+        <h4>
+          Vi har gjort det til vores mål og vores vision altid at være de bedste
+          inden for arbejds- og ansættelsesret i Danmark.
+        </h4>
+      </div>
       <img
         src="../../public/img/icons/arrow.svg"
         alt="Arrow down indicating scroll"
@@ -43,11 +49,13 @@
 import "@/styles/main.scss";
 import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
+import Logo from "@/components/icons/Logo.vue";
 
 export default Vue.extend({
   name: "Home",
   components: {
-    NvButton
+    NvButton,
+    Logo
   },
   data: function() {
     return {
@@ -83,6 +91,11 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/main.scss";
+
+.header-text {
+  padding-top: 25px;
+}
 .home-header {
   background-image: url("../../public/img/header-image.jpg");
   height: 75vh;
@@ -140,6 +153,7 @@ export default Vue.extend({
 .arrow-down {
   transform: translateY(0) rotate(90deg);
   margin-top: 15px;
+  transition: 0.6s;
   &:hover {
     transform: scale(1.5) translateY(0) rotate(90deg);
   }

@@ -16,21 +16,21 @@
         </div>
       </nav>
       <!-- Mobile nav -->
-      <nav role="navigation" class="nav__links--mobile">
-        <div id="menuToggle">
-          <!-- Fake hidden input and span fields to act as a hamburger menu until we implement Vue components -->
-          <input type="checkbox" />
-          <span></span>
-          <span></span>
-          <span></span>
+      <Slide class="slide">
+        <a id="home" href="#" class="nav__links--mobile">
+          <span>Home</span>
           <ul id="menu" class="nav__links">
             <router-link to="/opsigelser">Opsigelser</router-link>
+            <router-link to="/opsigelseberegner"
+              >Opsigelses Beregner</router-link
+            >
+            <router-link to="/sygedagsberegner">Sygedagsberegner</router-link>
             <router-link to="/om-hr-lab">Om HR Lab</router-link>
             <Search />
             <p>DK</p>
           </ul>
-        </div>
-      </nav>
+        </a>
+      </Slide>
     </div>
     <router-view class="content" />
     <Footer />
@@ -41,18 +41,22 @@
 import Logo from "@/components/icons/Logo.vue";
 import Search from "@/components/icons/Search.vue";
 import Footer from "@/components/Footer.vue";
+import { Slide } from "vue-burger-menu";
 
 export default {
   name: "App",
   components: {
     Logo,
     Search,
-    Footer
+    Footer,
+    Slide
   }
 };
 </script>
 
 <style lang="scss">
+@import "@/styles/main.scss";
+
 body {
   margin: 0;
 }
@@ -84,8 +88,14 @@ body {
   align-items: flex-end;
   padding: 15px 20px;
 
-  @media screen and (max-width: 640px) {
-    flex-direction: row-reverse;
+  @media screen and (max-width: 1000px) {
+    height: 30px;
+  }
+}
+
+.slide {
+  @media screen and (min-width: 1000px) {
+    display: none;
   }
 }
 
@@ -106,11 +116,21 @@ body {
   }
 }
 
+.bm-overlay {
+  background: none;
+}
+
 .nav__links {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+  }
 
   a,
   p {
@@ -127,136 +147,52 @@ body {
 }
 
 .nav__links--desktop {
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 1000px) {
     display: none;
   }
 }
 
 .nav__links--mobile {
-  @media screen and (min-width: 640px) {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  text-align: left;
+
+  @media screen and (min-width: 1000px) {
     display: none;
   }
 
-  .nav__links {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 120px;
-    justify-content: space-between;
-
-    p,
-    svg,
-    a {
-      margin: 0;
-    }
+  p,
+  svg,
+  a {
+    margin: 10px 0;
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 1000px) {
   .nav {
     padding: 10px 20px;
   }
 }
 
-// CodePen burger menu until we implement it as a Vue component
-// Src: https://codepen.io/erikterwan/pen/EVzeRP
-#menuToggle {
-  display: block;
-  position: relative;
-  z-index: 1;
-  -webkit-user-select: none;
-  user-select: none;
-  margin-top: 5px;
+.bm-menu {
+  right: 0;
+  left: auto;
 }
 
-#menuToggle input {
-  display: block;
-  position: absolute;
-  cursor: pointer;
-  opacity: 0; /* hide this */
-  z-index: 2; /* and place it over the hamburger */
-  -webkit-touch-callout: none;
-}
+.bm-burger-button {
+  right: 3vh;
+  left: auto;
+  top: 15px;
 
-/*
- * Just a quick hamburger
- */
-#menuToggle span {
-  display: block;
-  width: 28px;
-  height: 3px;
-  margin-bottom: 5px;
-  position: relative;
-  background: #ae966c;
-  border-radius: 3px;
-  z-index: 1;
-  transform-origin: 4px 0px;
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
-    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
-}
+  .line-style {
+    border-radius: 30px;
+    height: 16%;
+  }
 
-#menuToggle span:first-child {
-  transform-origin: 0% 0%;
-}
-
-#menuToggle span:nth-last-child(2) {
-  transform-origin: 0% 100%;
-}
-
-/*
- * Transform all the slices of hamburger
- * into a crossmark.
- */
-#menuToggle input:checked ~ span {
-  opacity: 1;
-  transform: rotate(45deg) translate(-2px, -1px);
-  background: #ae966c;
-}
-
-/*
- * But let's hide the middle one.
- */
-#menuToggle input:checked ~ span:nth-last-child(3) {
-  opacity: 0;
-  transform: rotate(0deg) scale(0.2, 0.2);
-}
-
-/*
- * Ohyeah and the last one should go the other direction
- */
-#menuToggle input:checked ~ span:nth-last-child(2) {
-  transform: rotate(-45deg) translate(0, -1px);
-}
-
-/*
- * Make this absolute positioned
- * at the top left of the screen
- */
-#menu {
-  position: absolute;
-  padding: 50px;
-  background: #f8f3f0;
-  list-style-type: none;
-  -webkit-font-smoothing: antialiased;
-  width: 90vw;
-  margin: 10px 0 0 -21px;
-  /* to stop flickering of text in safari */
-  transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
-
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-}
-
-#menu li {
-  padding: 10px 0;
-  font-size: 22px;
-}
-
-/*
- * And let's slide it in from the left
- */
-#menuToggle input:checked ~ ul {
-  transform: none;
+  .bm-burger-bars {
+    background: $brown;
+  }
 }
 
 input {

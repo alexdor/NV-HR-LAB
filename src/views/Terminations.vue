@@ -1,7 +1,7 @@
 <template>
   <div class="info">
     <div class="info-overview">
-      <h1>Opsigelser</h1>
+      <h1 class="slide-transition">Opsigelser</h1>
       <p>
         Det er ikke altid let at opsige en medarbejder. Reglerne er mange – og
         det kan være en omkostningstung affære for arbejdsgiveren, hvis en

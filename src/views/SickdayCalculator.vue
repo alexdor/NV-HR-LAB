@@ -2,7 +2,7 @@
   <div>
     <div class="header-image sb-header"></div>
     <div class="header-text">
-      <h2>Sygedagsberegner</h2>
+      <h2 class="slide-transition">Sygedagsberegner</h2>
     </div>
     <div class="input-container">
       <div class="input-cols">
@@ -65,6 +65,8 @@
 </template>
 
 <style lang="scss" scoped>
+@import "@/styles/main.scss";
+
 .table-add-button {
   padding: 1px 6px 3px 6px;
   width: auto;
@@ -97,6 +99,12 @@
     border-bottom: $borderStyle;
     padding-bottom: 20px;
     display: table;
+
+    @media screen and (max-width: 500px) {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
 
     .tableHeader {
       display: table-header-group;
@@ -140,6 +148,10 @@
   padding: 3px 5px;
   letter-spacing: 0.6px;
   width: 2%;
+
+  @media screen and (max-width: 640px) {
+    padding: 3px 10px;
+  }
 }
 </style>
 
