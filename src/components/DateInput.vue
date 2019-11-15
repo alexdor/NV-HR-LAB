@@ -1,12 +1,13 @@
 <template>
   <datepicker
     :class="[error ? 'error' : '', 'datepicker']"
+    input-class="date-input"
+    calendar-class="calendar"
     :monday-first="true"
     :full-month-name="true"
     :language="da"
     :value="value"
     :required="true"
-    input-class="date-input"
     @selected="$emit('selected', $event)"
     @input="$emit('input', $event)"
     @closed="$emit('closed', $event)"
@@ -32,30 +33,21 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-.datepicker {
-  display: inline-flex;
+@media (max-width: 767px) {
+  .datepicker {
+    position: static;
+    &::v-deep .calendar {
+      position: fixed;
+      top: 50%;
+      left: 5%;
+      margin-top: -25%;
+      width: 90%;
+      z-index: 2000;
+      outline: rgba(0, 0, 0, 0.5) solid 9999px;
+    }
+  }
 }
 
-@media screen and (max-width: 640px) {
-  // .datepicker {
-  //     position: absolute;
-  //     height: auto;
-  //     left: 15vw;
-  // }
-  //
-  // .datepicker__calendar {
-  //     display: flex;
-  //     flex-direction: column;
-  //     position: absolute;
-  //
-  //     & > div  {
-  //         display: flex;
-  //         flex-direction: row;
-  //         flex-wrap: wrap;
-  //     }
-  // }
-  //
-}
 .error .date-input {
   /* TODO: Add tooltip with an error */
   border: 2px solid #c7181e;
