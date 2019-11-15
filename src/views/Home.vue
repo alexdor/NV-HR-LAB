@@ -3,11 +3,7 @@
     <div class="header-image home-header"></div>
     <div class="header-text">
       <div class="slide-transition">
-        <Logo />
-        <h4>
-          Vi har gjort det til vores mål og vores vision altid at være de bedste
-          inden for arbejds- og ansættelsesret i Danmark.
-        </h4>
+        <h1>Velkommen til HR-Lab</h1>
       </div>
       <img
         src="../../public/img/icons/arrow.svg"
@@ -49,13 +45,11 @@
 import "@/styles/main.scss";
 import NvButton from "@/components/NvButton.vue";
 import Vue from "vue";
-import Logo from "@/components/icons/Logo.vue";
 
 export default Vue.extend({
   name: "Home",
   components: {
-    NvButton,
-    Logo
+    NvButton
   },
   data: function() {
     return {
@@ -93,9 +87,6 @@ export default Vue.extend({
 <style lang="scss" scoped>
 @import "@/styles/main.scss";
 
-.header-text {
-  padding-top: 25px;
-}
 .home-header {
   background-image: url("../../public/img/header-image.jpg");
   height: 75vh;
