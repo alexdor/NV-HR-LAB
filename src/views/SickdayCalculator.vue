@@ -103,7 +103,6 @@
     @media screen and (max-width: 500px) {
       display: block;
       overflow-x: auto;
-      white-space: nowrap;
     }
 
     .tableHeader {
@@ -156,7 +155,7 @@
 </style>
 
 <script lang="ts">
-import "@/styles/main.scss";
+// import "@/styles/main.scss";
 import Sickday from "@/tools/SickDays/Sickday.vue";
 import { SickDay } from "@/tools/SickDays/interfaces";
 import GenericInput from "@/components/GenericInput.vue";
