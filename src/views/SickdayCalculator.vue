@@ -45,7 +45,6 @@
                 .slice(0, index + 1)
                 .reduce((total, next) => total + Number(next.hours), 0)
             "
-            @create-sickday="createSickday"
             @delete="deleteSickDay"
           ></sickday>
         </div>
