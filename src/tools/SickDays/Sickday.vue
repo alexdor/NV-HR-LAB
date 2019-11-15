@@ -43,6 +43,14 @@
   padding: 3px 5px;
   letter-spacing: 0.6px;
   width: 2%;
+
+  @media screen and (max-width: 640px) {
+    padding: 3px 10px;
+  }
+}
+
+input {
+  margin-left: 0;
 }
 </style>
 

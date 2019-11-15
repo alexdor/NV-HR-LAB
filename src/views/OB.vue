@@ -2,7 +2,7 @@
   <div>
     <div class="header-image term-header"></div>
     <div class="header-text">
-      <h2>Værktøjer</h2>
+      <h2 class="slide-transition">Værktøjer</h2>
     </div>
     <div class="input-container">
       <h3>Beregn opsigelsesvarsel:</h3>
