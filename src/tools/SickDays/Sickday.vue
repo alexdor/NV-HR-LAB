@@ -6,13 +6,12 @@
         min="0"
         step="0.01"
         type="number"
-        @enter="sendForm()"
       />
     </div>
     <div class="cell date">
-      <date-input v-model="sickday.date" @input="sendForm()"></date-input>
+      <date-input v-model="sickday.date" @input="dateUpdate()"></date-input>
     </div>
-    <div class="cell weekday">{{ weekday }}</div>
+    <div class="cell weekday">{{ sickday.weekDay }}</div>
     <div class="cell days">{{ days }}</div>
     <div class="cell cumulative-days">{{ cumulativeDays }}</div>
     <div class="cell remove-cell align-center">
@@ -59,6 +58,7 @@ import Vue from "vue";
 import GenericInput from "@/components/GenericInput.vue";
 import DateInput from "@/components/DateInput.vue";
 import NvButton from "@/components/NvButton.vue";
+import { getWeekDay } from "@/helpers/days";
 export default Vue.extend({
   components: { GenericInput, DateInput, NvButton },
   props: ["sickday", "workHours", "language", "accumulatedHours"],
@@ -67,22 +67,10 @@ export default Vue.extend({
       text: {
         en: { date: "Date", hours: "Hours" },
         dk: { date: "Dag", hours: "Timer" }
-      },
-      weekdays: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ]
+      }
     };
   },
   computed: {
-    weekday: function(): string {
-      return this.weekdays[new Date(this.sickday.date).getDay()];
-    },
     days: function(): string {
       return (this.sickday.hours / this.workHours).toFixed(2);
     },
@@ -94,8 +82,10 @@ export default Vue.extend({
     deleteSickDay(): void {
       this.$emit("delete", this.sickday.id);
     },
-    sendForm(): void {
-      this.$emit("create-sickday", this.sickday.id);
+    dateUpdate(): void {
+      console.log(this.sickday.date);
+      this.sickday.weekDay = getWeekDay(this.sickday.date);
+      this.$emit("date-update", this.sickday.id);
     }
   }
 });

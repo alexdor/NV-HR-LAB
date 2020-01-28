@@ -46,6 +46,7 @@
                 .reduce((total, next) => total + Number(next.hours), 0)
             "
             @delete="deleteSickDay"
+            @date-update="dateUpdate"
           ></sickday>
         </div>
       </div>
@@ -159,15 +160,10 @@ import Sickday from "@/tools/SickDays/Sickday.vue";
 import { SickDay } from "@/tools/SickDays/interfaces";
 import GenericInput from "@/components/GenericInput.vue";
 import NvButton from "@/components/NvButton.vue";
-import { uuidv4 } from "@/helpers/uuid";
+import { getNewDay } from "@/helpers/days";
 import Vue from "vue";
-function getNewDay(hours: number): SickDay {
-  return {
-    id: uuidv4(),
-    date: new Date(),
-    hours: hours || 0
-  };
-}
+import { adjustWeekends } from "@/tools/SickDays/weekendLogic";
+
 const defaultWorkHours = 7.4;
 export default Vue.extend({
   components: {
@@ -181,15 +177,6 @@ export default Vue.extend({
       sortBy: "none",
       sickdays: [getNewDay(defaultWorkHours)],
       workHours: defaultWorkHours,
-      weekdays: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
       text: {
         en: {
           date: "Date",
@@ -215,11 +202,18 @@ export default Vue.extend({
       const index = this.sickdays.findIndex(sickDay => sickDay.id === id);
       // create new sickday, if user click the button or presses enter on the last element
       if (index === -1 || index === this.sickdays.length - 1) {
-        this.sickdays.push(getNewDay(this.workHours));
+        const newDate = getNewDay(this.workHours);
+        this.sickdays = adjustWeekends(
+          [...this.sickdays, newDate],
+          newDate.id,
+          this.workHours,
+          true
+        );
       }
 
       // move focus to the input of the next sickday
       this.$nextTick(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sickdays = this.$refs.sickdays as any[];
         const input =
           index === -1 ? sickdays[sickdays.length - 1] : sickdays[index + 1];
@@ -233,6 +227,9 @@ export default Vue.extend({
       this.sickdays = this.sickdays.filter(
         (sickday: SickDay) => sickday.id !== id
       );
+    },
+    dateUpdate(id: string): void {
+      this.sickdays = adjustWeekends(this.sickdays, id, this.workHours);
     },
     sortByDate(): void {
       if (this.sortBy == "date") {
