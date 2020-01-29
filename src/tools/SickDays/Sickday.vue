@@ -83,7 +83,6 @@ export default Vue.extend({
       this.$emit("delete", this.sickday.id);
     },
     dateUpdate(): void {
-      console.log(this.sickday.date);
       this.sickday.weekDay = getWeekDay(this.sickday.date);
       this.$emit("date-update", this.sickday.id);
     }
