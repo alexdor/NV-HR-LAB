@@ -22,9 +22,23 @@
         <nv-button @click="calculate()">Beregn</nv-button>
       </div>
     </div>
-    <div class="ob__summary">
-      <h4>{{ output.terminationNotice }}</h4>
-      <h4>{{ output.terminationDate.toDateString() }}</h4>
+    <div v-if="output.terminationNotice" class="ob__summary">
+      <div>
+        <p class="text-output">
+          Medarbejderen blev ansat den
+          {{ input.employmentDate.toDateString() }} og opsagt den
+          {{ input.terminationDate.toDateString() }}.
+        </p>
+        <p class="text-output">
+          Opsigelsesvarslet er forlænget med
+          {{ input.extension }} måneder, og er derfor i alt
+          <span class="bold">{{ output.terminationNotice }}</span
+          >.<br />
+          Medarbejderen skal derfor fratræde den
+          <span class="bold">{{ output.terminationDate.toDateString() }}</span
+          >.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -90,3 +104,21 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.text-output {
+  text-align: left;
+}
+.bold {
+  font-weight: 600;
+}
+
+.ob__summary {
+  background-color: $bgColor;
+  padding: 20px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+</style>
