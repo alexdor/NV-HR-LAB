@@ -54,13 +54,15 @@ const tests = [
   {
     it: "Adds a weekend when Friday is added and Monday exists",
     ...getTestDate(["Saturday", "Sunday"], "Friday"),
-    diff: 2
+    diff: 2,
+    shouldEqualOriginal: true
   },
 
   {
     it: "Adds a weekend when Monday is added and Friday exists",
     ...getTestDate(["Saturday", "Sunday"], "Monday"),
-    diff: 2
+    diff: 2,
+    shouldEqualOriginal: true
   }
 
   // { it: "Drops a weekend when Friday is deleted and Monday exists" },
@@ -91,6 +93,17 @@ describe("sick day weekend logic", () => {
       const result = adjustWeekends(test.data, test.newDateID, workHours);
 
       expect(result.length).toBe(test.data.length + test.diff);
+      // TODO: This is a naive way of matching things, we should improve it
+      if (test.shouldEqualOriginal) {
+        const areAllTheDatesMatching = !!result.every(
+          date =>
+            !!originalState.find(
+              originalDate =>
+                originalDate.date.toUTCString() === date.date.toUTCString()
+            )
+        );
+        expect(areAllTheDatesMatching).toBeTruthy();
+      }
     });
   });
 });
