@@ -16,6 +16,8 @@ export function adjustWeekends(
     date.history = { ...date, history: undefined };
     return sickDays;
   }
+  // declare day variables so eslint doesn't complain
+  let sat, sun, thirdDay;
   switch (date.weekDay) {
     case "Friday":
       if (
@@ -24,9 +26,8 @@ export function adjustWeekends(
       ) {
         break;
       }
-      // eslint-disable-next-line no-case-declarations
-      const [sat, sun, mon] = getXDays(3, date.date);
-      if (sickDays[nextIndex].date.toUTCString() !== mon.toUTCString()) {
+      [sat, sun, thirdDay] = getXDays(3, date.date);
+      if (sickDays[nextIndex].date.toUTCString() !== thirdDay.toUTCString()) {
         break;
       }
       sickDays.splice(
@@ -41,16 +42,17 @@ export function adjustWeekends(
       if (previousIndex < 0 || sickDays[previousIndex].weekDay !== "Friday") {
         break;
       }
-      // eslint-disable-next-line no-case-declarations
-      const [sunday, saturday, fri] = getXDays(-3, date.date);
-      if (sickDays[previousIndex].date.toUTCString() !== fri.toUTCString()) {
+      [sun, sat, thirdDay] = getXDays(-3, date.date);
+      if (
+        sickDays[previousIndex].date.toUTCString() !== thirdDay.toUTCString()
+      ) {
         break;
       }
       sickDays.splice(
         index,
         0,
-        getNewDay(workHours, saturday, true),
-        getNewDay(workHours, sunday, true)
+        getNewDay(workHours, sat, true),
+        getNewDay(workHours, sun, true)
       );
       break;
   }
