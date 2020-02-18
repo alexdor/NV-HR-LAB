@@ -1,6 +1,7 @@
 /* eslint-disable */
 const routes = require("./src/router/routes.json");
 /* eslint-enable */
+/** @type {string[]} */
 const renderRoutes = [];
 
 routes.forEach(route => {
