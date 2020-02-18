@@ -8,6 +8,7 @@
     "build": "vue-cli-service build",
     "test": "npm run test:unit",
     "test:unit": "vue-cli-service test:unit",
+    "test:dev": "vue-cli-service test:unit  --watch",
     "test:debug": "node --inspect-brk node_modules/.bin/vue-cli-service test:unit --no-cache --watch --runInBand",
     "lint": "vue-cli-service lint"
   },
