@@ -157,12 +157,15 @@
 <script lang="ts">
 // import "@/styles/main.scss";
 import Sickday from "@/tools/SickDays/Sickday.vue";
-import { SickDay } from "@/tools/SickDays/interfaces";
 import GenericInput from "@/components/GenericInput.vue";
 import NvButton from "@/components/NvButton.vue";
 import { getNewDay } from "@/helpers/days";
 import Vue from "vue";
-import { adjustWeekends } from "@/tools/SickDays/weekendLogic";
+import {
+  adjustWeekendsOnAddDate,
+  adjustWeekendsOnDeleteDate
+} from "@/tools/SickDays/weekendLogic";
+import { SickDay } from "../tools/SickDays/interfaces";
 
 const defaultWorkHours = 7.4;
 export default Vue.extend({
@@ -175,7 +178,7 @@ export default Vue.extend({
   data() {
     return {
       sortBy: "none",
-      sickdays: [getNewDay(defaultWorkHours)],
+      sickdays: [] as SickDay[],
       workHours: defaultWorkHours,
       text: {
         en: {
@@ -203,10 +206,9 @@ export default Vue.extend({
       // create new sickday, if user click the button or presses enter on the last element
       if (index === -1 || index === this.sickdays.length - 1) {
         const newDate = getNewDay(this.workHours);
-        this.sickdays = adjustWeekends(
+        this.sickdays = adjustWeekendsOnAddDate(
           [...this.sickdays, newDate],
           newDate.id,
-          this.workHours,
           true
         );
       }
@@ -215,8 +217,7 @@ export default Vue.extend({
       this.$nextTick(() => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const sickdays = this.$refs.sickdays as any[];
-        const input =
-          index === -1 ? sickdays[sickdays.length - 1] : sickdays[index + 1];
+        const input = sickdays[index === -1 ? sickdays.length - 1 : index + 1];
         if (!input) {
           return;
         }
@@ -224,12 +225,10 @@ export default Vue.extend({
       });
     },
     deleteSickDay(id: string): void {
-      this.sickdays = this.sickdays.filter(
-        (sickday: SickDay) => sickday.id !== id
-      );
+      this.sickdays = adjustWeekendsOnDeleteDate(this.sickdays, id);
     },
     dateUpdate(id: string): void {
-      this.sickdays = adjustWeekends(this.sickdays, id, this.workHours);
+      this.sickdays = adjustWeekendsOnAddDate(this.sickdays, id);
     },
     sortByDate(): void {
       if (this.sortBy == "date") {

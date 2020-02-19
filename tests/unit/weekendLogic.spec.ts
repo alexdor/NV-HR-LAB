@@ -1,6 +1,10 @@
 import { getNewDay } from "@/helpers/days";
-import { WeekDay } from "@/tools/SickDays/interfaces";
-import { adjustWeekends } from "@/tools/SickDays/weekendLogic";
+import { SickDay, WeekDay } from "@/tools/SickDays/interfaces";
+import {
+  adjustWeekendsOnAddDate,
+  adjustWeekendsOnDeleteDate,
+  findUTCDateInSickDays
+} from "@/tools/SickDays/weekendLogic";
 
 const today = new Date();
 const workHours = 10;
@@ -14,6 +18,7 @@ const originalState = Array.from({ length: 50 }, () =>
  */
 function excludeDays(days: WeekDay[]) {
   const originalDate = [...originalState];
+  if (!days) return originalDate;
   const daysToKeep = [];
   let found = false;
   for (let i = 0; i < originalDate.length; i++) {
@@ -39,33 +44,83 @@ function excludeDays(days: WeekDay[]) {
 }
 
 function getTestDate(days: WeekDay[], dayToGet: WeekDay) {
+  const dateFind = (d: { weekDay: WeekDay }) => dayToGet === d.weekDay;
   const data = excludeDays(days);
-  const day = data.find(d => dayToGet === d.weekDay);
+  const day = data.find(dateFind) || originalState.find(dateFind);
   if (!day) throw Error("Error while creating the data, couldn't find date");
   day.history = undefined;
   return {
     data,
-    newDateID: day.id
+    changedDateID: day.id
   };
 }
 
-// TODO: Evaluate that the days are actually added properly
-const tests = [
+type testData = {
+  data: SickDay[];
+  changedDateID: string;
+  it: string;
+  shouldEqualOriginal?: boolean;
+  diff: number;
+};
+
+/**
+ * Add actions
+ */
+const testsForDateAdd: testData[] = [
   {
     it: "Adds a weekend when Friday is added and Monday exists",
     ...getTestDate(["Saturday", "Sunday"], "Friday"),
     diff: 2,
     shouldEqualOriginal: true
   },
-
   {
     it: "Adds a weekend when Monday is added and Friday exists",
     ...getTestDate(["Saturday", "Sunday"], "Monday"),
     diff: 2,
     shouldEqualOriginal: true
+  },
+  {
+    it: "Does nothing when Monday is added and Friday doesn't exists",
+    ...getTestDate(["Friday"], "Monday"),
+    diff: 0
+  },
+  {
+    it:
+      "Does nothing when a Friday is added, Monday exists but a weekend already exists",
+    ...getTestDate([], "Friday"),
+    diff: 0,
+    shouldEqualOriginal: true
+  },
+  {
+    it:
+      "Does nothing when a Monday is added, Friday exists but a weekend already exists",
+    ...getTestDate([], "Monday"),
+    diff: 0,
+    shouldEqualOriginal: true
+  },
+  {
+    it: "Does nothing when Tuesday is added",
+    ...getTestDate([], "Tuesday"),
+    diff: 0,
+    shouldEqualOriginal: true
   }
+];
 
-  // { it: "Drops a weekend when Friday is deleted and Monday exists" },
+/**
+ * Delete actions
+ */
+const testsForDateDelete: testData[] = [
+  {
+    it: "Drops only Friday when Friday is deleted and Monday doesn't exists",
+    ...getTestDate(["Monday"], "Friday"),
+    diff: -1
+  },
+
+  {
+    it: "Drops a weekend when Friday is deleted and Monday exists",
+    ...getTestDate([], "Monday"),
+    diff: -3
+  }
 
   // { it: "Drops a weekend when Monday is deleted and Friday exists" },
   // {
@@ -75,35 +130,34 @@ const tests = [
   //   it: "Does nothing when Friday is deleted and Monday doesn't exists"
   // },
   // {
-  //   it: "Does nothing a weekend when Tuesday is added"
-  // },
-
-  // {
-  //   it: "Does nothing a weekend when Tuesday is dropped"
-  // },
-  // {
-  //   it:
-  //     "Does nothing when a Friday is added, Monday exists but a weekend already exists"
+  //   it: "Does nothing when Tuesday is dropped"
   // }
 ];
 
-describe("sick day weekend logic", () => {
-  tests.forEach(test => {
-    it(test.it, () => {
-      const result = adjustWeekends(test.data, test.newDateID, workHours);
+const validateTestResults = (result: SickDay[], test: testData) => {
+  expect(result.length).toBe(test.data.length + test.diff);
+  if (test.shouldEqualOriginal) {
+    const areAllTheDatesMatching = !!originalState.every(
+      date => !!findUTCDateInSickDays(result, date.date.toUTCString())
+    );
+    expect(areAllTheDatesMatching).toBeTruthy();
+  }
+};
 
-      expect(result.length).toBe(test.data.length + test.diff);
-      // TODO: This is a naive way of matching things, we should improve it
-      if (test.shouldEqualOriginal) {
-        const areAllTheDatesMatching = !!result.every(
-          date =>
-            !!originalState.find(
-              originalDate =>
-                originalDate.date.toUTCString() === date.date.toUTCString()
-            )
-        );
-        expect(areAllTheDatesMatching).toBeTruthy();
-      }
+describe("sick day weekend add logic", () => {
+  testsForDateAdd.forEach(test => {
+    it(test.it, () => {
+      const result = adjustWeekendsOnAddDate(test.data, test.changedDateID);
+      validateTestResults(result, test);
+    });
+  });
+});
+
+describe("sick day weekend delete logic", () => {
+  testsForDateDelete.forEach(test => {
+    it(test.it, () => {
+      const result = adjustWeekendsOnDeleteDate(test.data, test.changedDateID);
+      validateTestResults(result, test);
     });
   });
 });

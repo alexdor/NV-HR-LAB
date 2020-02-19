@@ -2,19 +2,27 @@
   <div class="row">
     <div class="cell hours">
       <generic-input
+        v-if="!sickday.generated"
         v-model="sickday.hours"
         min="0"
         step="0.01"
         type="number"
       />
+      <span v-else> {{ sickday.hours }}</span>
     </div>
+
     <div class="cell date">
-      <date-input v-model="sickday.date" @input="dateUpdate()"></date-input>
+      <date-input
+        v-if="!sickday.generated"
+        v-model="sickday.date"
+        @input="dateUpdate()"
+      ></date-input>
+      <span v-else class="cell date">{{ formatedDate }}</span>
     </div>
     <div class="cell weekday">{{ sickday.weekDay }}</div>
     <div class="cell days">{{ days }}</div>
     <div class="cell cumulative-days">{{ cumulativeDays }}</div>
-    <div class="cell remove-cell align-center">
+    <div v-if="!sickday.generated" class="cell remove-cell align-center">
       <nv-button class="table-delete-button" @click="deleteSickDay"
         >x</nv-button
       >
@@ -48,8 +56,18 @@
   }
 }
 
+.hours span,
+.date span {
+  padding: 11px 30px;
+  width: 220px;
+  border-radius: 30px;
+  font-size: 16px;
+  margin: 5px;
+}
+
 input {
   margin-left: 0;
+  color: #ae966c;
 }
 </style>
 
@@ -59,6 +77,7 @@ import GenericInput from "@/components/GenericInput.vue";
 import DateInput from "@/components/DateInput.vue";
 import NvButton from "@/components/NvButton.vue";
 import { getWeekDay } from "@/helpers/days";
+import { format } from "date-fns";
 export default Vue.extend({
   components: { GenericInput, DateInput, NvButton },
   props: ["sickday", "workHours", "language", "accumulatedHours"],
@@ -76,6 +95,9 @@ export default Vue.extend({
     },
     cumulativeDays: function(): string {
       return (this.accumulatedHours / this.workHours).toFixed(2);
+    },
+    formatedDate: function(): string {
+      return format(this.sickday.date, "dd MMM yyyy");
     }
   },
   methods: {
