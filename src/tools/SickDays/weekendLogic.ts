@@ -46,6 +46,7 @@ export function adjustWeekendsOnAddDate(
   const date = sickDays[index];
 
   const handleError = (errorMessage: string) => {
+    // eslint-disable-next-line no-console
     console.error(errorMessage);
     return returnSickDays(sickDays, date);
   };
@@ -112,6 +113,7 @@ export function adjustWeekendsOnDeleteDate(
     sickDays.filter(day => !daysToFilter.includes(day.id));
 
   const handleError = (errorMessage: string) => {
+    // eslint-disable-next-line no-console
     console.error(errorMessage);
     return returnStatement();
   };
