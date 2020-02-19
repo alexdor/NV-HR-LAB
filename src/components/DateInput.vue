@@ -32,7 +32,7 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @media (max-width: 767px) {
   .datepicker {
     position: static;
@@ -46,6 +46,10 @@ export default Vue.extend({
       outline: rgba(0, 0, 0, 0.5) solid 9999px;
     }
   }
+}
+
+.date-input {
+  color: #ae966c !important;
 }
 
 .error .date-input {
