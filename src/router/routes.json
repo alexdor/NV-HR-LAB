@@ -26,5 +26,77 @@
     "path": "/opsigelser",
     "name": "Opsigelser",
     "view": "Terminations.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/faq-ansættelsen",
+    "name": "faq-nsættelsen",
+    "view": "Sprog-ansættelsen.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/ansættelsen",
+    "name": "ansættelsen",
+    "view": "Ansættelsen.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/faq-bonusordninger",
+    "name": "sprog-bonusordninger",
+    "view": "Sprog-bonusordninger.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/bonusordninger",
+    "name": "bonusordninger",
+    "view": "Bonusordninger.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/faq-klausuler",
+    "name": "sprog-klausuler",
+    "view": "Sprog-klausuler.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/klausuler",
+    "name": "klausuler",
+    "view": "Klausuler.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/faq-politikker",
+    "name": "sprog-politikker",
+    "view": "Sprog-politikker.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/politikker",
+    "name": "politikker",
+    "view": "Politikker.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/faq-databeskyttelse",
+    "name": "sprog-databeskyttelse",
+    "view": "Sprog-persondata.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/databeskyttelse",
+    "name": "databeskyttelse",
+    "view": "Persondata.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/faq-opsigelser",
+    "name": "opsigelse",
+    "view": "Sprog-opsigelse.vue"
+  },
+  {
+    "prerender": true,
+    "path": "/ajour",
+    "name": "ajour",
+    "view": "Ajour.vue"
   }
 ]

@@ -4,6 +4,7 @@
     <div class="header-text">
       <div class="slide-transition">
         <h1>Velkommen til HR-Lab</h1>
+        <h3>Din juridiske værktøjskasse</h3>
       </div>
       <img
         src="../../public/img/icons/arrow.svg"
@@ -54,15 +55,15 @@ export default Vue.extend({
   data: function() {
     return {
       items: [
-        { text: "Ansættelsen" },
-        { text: "Bonus" },
+        { text: "Ansættelsen", route: "ansættelsen" },
+        { text: "Bonus", route: "bonusordninger" },
         { text: "Opsigelser / Bortvisning", route: "opsigelser" },
-        { text: "Persondata" },
-        { text: "Politikker" },
-        { text: "Klausuler" },
+        { text: "Persondata", route: "databeskyttelse" },
+        { text: "Politikker", route: "politikker" },
+        { text: "Klausuler", route: "klausuler" },
         { text: "Podcast" },
         { text: "HR-legal partner / Hotline" },
-        { text: "Følg Med / Ajour" }
+        { text: "Følg Med / Ajour", route: "ajour" }
       ],
       items2: [
         { text: "Opsigelsesvarsel", route: "opsigelseberegner" },
@@ -88,9 +89,9 @@ export default Vue.extend({
 @import "@/styles/main.scss";
 
 .home-header {
-  background-image: url("../../public/img/header-image.jpg");
+  background-image: url("../../public/img/header-img-1.jpg");
   height: 75vh;
-  background-position: 50% 5%;
+  background-position: 50% 20%;
 }
 
 .home-buttons-container {
@@ -116,7 +117,7 @@ export default Vue.extend({
   }
 }
 
-.button-soon:not(:nth-child(3)),
+.button-soon:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(5)):not(:nth-child(6)):not(:nth-child(9)),
 .button-soon-section2:nth-child(3) {
   &:hover {
     background-color: #9b9b9b;
