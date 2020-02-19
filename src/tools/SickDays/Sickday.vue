@@ -7,6 +7,7 @@
         min="0"
         step="0.01"
         type="number"
+        @input="dateUpdate()"
       />
       <span v-else> {{ sickday.hours }}</span>
     </div>
