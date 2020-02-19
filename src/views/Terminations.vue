@@ -7,6 +7,19 @@
         det kan være en omkostningstung affære for arbejdsgiveren, hvis en
         opsigelsessituation ikke bliver håndteret korrekt.
       </p>
+
+      <div class="link__container">
+        <div class="">
+          <a href="/opsigelseberegner">
+            <img
+              src="../../public/img/icons/arrow.svg"
+              alt="Clickable arrow"
+              class="arrow-down pointer"
+            />
+            <h2 class="link__button">Beregn dit opsigelsesvarsel</h2>
+          </a>
+        </div>
+      </div>
     </div>
     <div class="info-row background-color">
       <div class="info-row-content">
@@ -71,6 +84,20 @@
             </li>
           </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="link__container">
+      <h3>Har du spørgsmål om opsigelse?</h3>
+      <div class="">
+        <a href="/faq-opsigelser">
+          <img
+            src="../../public/img/icons/arrow.svg"
+            alt="Clickable arrow"
+            class="arrow-down pointer"
+          />
+          <h3 class="link__button">Læs mere</h3>
+        </a>
       </div>
     </div>
   </div>
