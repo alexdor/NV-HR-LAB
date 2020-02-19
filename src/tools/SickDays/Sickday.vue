@@ -57,8 +57,8 @@
   }
 }
 
-.hours span,
-.date span {
+.hours > span,
+.date > span {
   padding: 11px 30px;
   width: 220px;
   border-radius: 30px;
