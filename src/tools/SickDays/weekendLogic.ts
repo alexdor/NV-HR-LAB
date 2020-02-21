@@ -1,5 +1,5 @@
 import { getNewDay, getXDays } from "@/helpers/days";
-import { SickDay } from "./interfaces";
+import { SickDay, WeekDay } from "./interfaces";
 
 export const findUTCDateInSickDays = (sickDays: SickDay[], value: string) =>
   sickDays.find(sickDay => sickDay.date.toUTCString() === value);
@@ -16,7 +16,7 @@ const daysConfig = {
 };
 
 type DaysConfigKey = keyof typeof daysConfig;
-
+const daysToCheck: WeekDay[] = ["Monday", "Friday"];
 /**
  * Returns the weekend and the thirdDay(Monday or Friday)
  * that is related with date passed
@@ -27,6 +27,55 @@ function getWeekendDays(weekDay: DaysConfigKey, date: Date) {
   if (daysToGet > 0) return getXDays(daysToGet, date);
   const [sun, sat, thirdDay] = getXDays(daysToGet, date);
   return [sat, sun, thirdDay];
+}
+
+export function adjustWeekendsOnDeleteDate(
+  originalSickDays: SickDay[],
+  sickDayToDeleteID: string,
+  useHistory = false
+): SickDay[] {
+  const sickDays = [...originalSickDays];
+  // A list of ids with all the days to delete
+  const daysToFilter = useHistory ? [] : [sickDayToDeleteID];
+
+  // The final filter that is done to drop the deleted dates
+  const returnStatement = () =>
+    sickDays.filter(day => !daysToFilter.includes(day.id));
+
+  const handleError = (errorMessage: string) => {
+    // eslint-disable-next-line no-console
+    console.error(errorMessage);
+    return returnStatement();
+  };
+
+  let date = sickDays.find(day => day.id === sickDayToDeleteID);
+  if (!date || (useHistory && !date.history))
+    return handleError("Failed to find date for delete");
+
+  if (useHistory) {
+    date = date?.history as SickDay;
+  }
+
+  // If date changed isn't Monday or Friday just return
+  if (!daysToCheck.includes(date.weekDay)) return returnStatement();
+
+  const [sat, sun, thirdDay] = getWeekendDays(
+    date.weekDay as DaysConfigKey,
+    date.date
+  );
+
+  // If the thirdDay doesn't exist in the days, return
+  if (!findUTCDateInSickDays(sickDays, thirdDay.toUTCString())) {
+    return returnStatement();
+  }
+
+  const saturday = findUTCDateInSickDays(sickDays, sat.toUTCString());
+  const sunday = findUTCDateInSickDays(sickDays, sun.toUTCString());
+  if (!saturday || !sunday) {
+    return handleError("Something went wrong during weekend search");
+  }
+  daysToFilter.push(saturday.id, sunday.id);
+  return returnStatement();
 }
 
 const returnSickDays = (sickDays: SickDay[], date?: SickDay) => {
@@ -54,8 +103,10 @@ export function adjustWeekendsOnAddDate(
   if (!date) return handleError("Failed to find date");
 
   // If date changed isn't Monday or Friday just return
-  if (!["Monday", "Friday"].includes(date.weekDay))
-    return returnSickDays(sickDays);
+  if (!daysToCheck.includes(date.weekDay))
+    return daysToCheck.includes(date.history?.weekDay as WeekDay)
+      ? adjustWeekendsOnDeleteDate(returnSickDays(sickDays), date.id, true)
+      : returnSickDays(sickDays);
 
   // Make types happy :)
   const weekDay = date.weekDay as DaysConfigKey;
@@ -98,47 +149,4 @@ export function adjustWeekendsOnAddDate(
   );
 
   return returnSickDays(sickDays, date);
-}
-
-export function adjustWeekendsOnDeleteDate(
-  originalSickDays: SickDay[],
-  sickDayToDeleteID: string
-): SickDay[] {
-  const sickDays = [...originalSickDays];
-  // A list of ids with all the days to delete
-  const daysToFilter = [sickDayToDeleteID];
-
-  // The final filter that is done to drop the deleted dates
-  const returnStatement = () =>
-    sickDays.filter(day => !daysToFilter.includes(day.id));
-
-  const handleError = (errorMessage: string) => {
-    // eslint-disable-next-line no-console
-    console.error(errorMessage);
-    return returnStatement();
-  };
-
-  const date = sickDays.find(day => day.id === sickDayToDeleteID);
-  if (!date) return handleError("Failed to find date for delete");
-
-  // If date changed isn't Monday or Friday just return
-  if (!["Monday", "Friday"].includes(date.weekDay)) return returnStatement();
-
-  const [sat, sun, thirdDay] = getWeekendDays(
-    date.weekDay as DaysConfigKey,
-    date.date
-  );
-
-  // If the thirdDay doesn't exist in the days, return
-  if (!findUTCDateInSickDays(sickDays, thirdDay.toUTCString())) {
-    return returnStatement();
-  }
-
-  const saturday = findUTCDateInSickDays(sickDays, sat.toUTCString());
-  const sunday = findUTCDateInSickDays(sickDays, sun.toUTCString());
-  if (!saturday || !sunday) {
-    return handleError("Something went wrong during weekend search");
-  }
-  daysToFilter.push(saturday.id, sunday.id);
-  return returnStatement();
 }
