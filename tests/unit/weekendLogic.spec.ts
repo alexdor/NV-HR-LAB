@@ -3,10 +3,13 @@ import { SickDay, WeekDay } from "@/tools/SickDays/interfaces";
 import {
   adjustWeekendsOnAddDate,
   adjustWeekendsOnDeleteDate,
-  findUTCDateInSickDays
+  daysToCheck,
+  findUTCDateInSickDays,
+  getWeekendDays
 } from "@/tools/SickDays/weekendLogic";
 
 const today = new Date();
+today.setHours(0, 0, 0, 0);
 const workHours = 10;
 const originalState = Array.from({ length: 50 }, () =>
   getNewDay(workHours, new Date(today.setDate(today.getDate() + 1)))
@@ -24,7 +27,7 @@ function excludeDays(days: WeekDay[]) {
   for (let i = 0; i < originalDate.length; i++) {
     const element = originalDate[i];
     // Push element and continue if the searching match has been found or the day isn't in the days we are interested
-    if (found || !days.includes(element.weekDay)) {
+    if (!days.includes(element.weekDay)) {
       daysToKeep.push(element);
       continue;
     }
@@ -43,10 +46,23 @@ function excludeDays(days: WeekDay[]) {
   return daysToKeep;
 }
 
-function getTestDate(days: WeekDay[], dayToGet: WeekDay) {
-  const dateFind = (d: { weekDay: WeekDay }) => dayToGet === d.weekDay;
+function getTestDate(
+  days: WeekDay[],
+  dayToGet: WeekDay,
+  shouldBeContinue = false
+) {
+  const dayFind = (sickDays: SickDay[]) => {
+    return sickDays.find(d => {
+      if (d.weekDay !== dayToGet) return false;
+      if (!shouldBeContinue || !daysToCheck.includes(dayToGet))
+        return dayToGet === d.weekDay;
+
+      const thirdDay = getWeekendDays(d.weekDay as any, d.date)[2];
+      return !!findUTCDateInSickDays(sickDays, thirdDay.toUTCString());
+    });
+  };
   const data = excludeDays(days);
-  const day = data.find(dateFind) || originalState.find(dateFind);
+  const day = dayFind(data) || dayFind(originalState);
   if (!day) throw Error("Error while creating the data, couldn't find date");
   day.history = undefined;
   return {
@@ -59,7 +75,6 @@ type testData = {
   data: SickDay[];
   changedDateID: string;
   it: string;
-  shouldEqualOriginal?: boolean;
   diff: number;
 };
 
@@ -69,15 +84,13 @@ type testData = {
 const testsForDateAdd: testData[] = [
   {
     it: "Adds a weekend when Friday is added and Monday exists",
-    ...getTestDate(["Saturday", "Sunday"], "Friday"),
-    diff: 2,
-    shouldEqualOriginal: true
+    ...getTestDate(["Saturday", "Sunday"], "Friday", true),
+    diff: 2
   },
   {
     it: "Adds a weekend when Monday is added and Friday exists",
-    ...getTestDate(["Saturday", "Sunday"], "Monday"),
-    diff: 2,
-    shouldEqualOriginal: true
+    ...getTestDate(["Saturday", "Sunday"], "Monday", true),
+    diff: 2
   },
   {
     it: "Does nothing when Monday is added and Friday doesn't exists",
@@ -88,21 +101,18 @@ const testsForDateAdd: testData[] = [
     it:
       "Does nothing when a Friday is added, Monday exists but a weekend already exists",
     ...getTestDate([], "Friday"),
-    diff: 0,
-    shouldEqualOriginal: true
+    diff: 0
   },
   {
     it:
       "Does nothing when a Monday is added, Friday exists but a weekend already exists",
     ...getTestDate([], "Monday"),
-    diff: 0,
-    shouldEqualOriginal: true
+    diff: 0
   },
   {
     it: "Does nothing when Tuesday is added",
     ...getTestDate([], "Tuesday"),
-    diff: 0,
-    shouldEqualOriginal: true
+    diff: 0
   }
 ];
 
@@ -111,37 +121,34 @@ const testsForDateAdd: testData[] = [
  */
 const testsForDateDelete: testData[] = [
   {
+    it: "Drops a weekend when Friday is deleted and Monday exists",
+    ...getTestDate([], "Monday", true),
+    diff: -3
+  },
+  {
+    it: "Drops a weekend when Monday is deleted and Friday exists",
+    ...getTestDate([], "Friday", true),
+    diff: -3
+  },
+  {
     it: "Drops only Friday when Friday is deleted and Monday doesn't exists",
-    ...getTestDate(["Monday"], "Friday"),
+    ...getTestDate(["Monday"], "Friday", true),
     diff: -1
   },
-
   {
-    it: "Drops a weekend when Friday is deleted and Monday exists",
-    ...getTestDate([], "Monday"),
-    diff: -3
+    it: "Drops only Monday when Monday is deleted and Friday doesn't exists",
+    ...getTestDate(["Friday"], "Monday"),
+    diff: -1
+  },
+  {
+    it: "Drops only Tuesday when Tuesday is dropped",
+    ...getTestDate([], "Tuesday"),
+    diff: -1
   }
-
-  // { it: "Drops a weekend when Monday is deleted and Friday exists" },
-  // {
-  //   it: "Does nothing when Monday is deleted and Friday doesn't exists"
-  // },
-  // {
-  //   it: "Does nothing when Friday is deleted and Monday doesn't exists"
-  // },
-  // {
-  //   it: "Does nothing when Tuesday is dropped"
-  // }
 ];
 
 const validateTestResults = (result: SickDay[], test: testData) => {
   expect(result.length).toBe(test.data.length + test.diff);
-  if (test.shouldEqualOriginal) {
-    const areAllTheDatesMatching = !!originalState.every(
-      date => !!findUTCDateInSickDays(result, date.date.toUTCString())
-    );
-    expect(areAllTheDatesMatching).toBeTruthy();
-  }
 };
 
 describe("sick day weekend add logic", () => {
