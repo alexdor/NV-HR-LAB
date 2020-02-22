@@ -8,7 +8,7 @@
     :language="da"
     :value="value"
     :required="true"
-    @selected="$emit('selected', $event)"
+    @selected="$emit('input', $event)"
     @input="$emit('input', $event)"
     @closed="$emit('closed', $event)"
   ></datepicker>

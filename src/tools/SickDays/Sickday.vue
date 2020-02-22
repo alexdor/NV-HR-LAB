@@ -77,8 +77,7 @@ import Vue from "vue";
 import GenericInput from "@/components/GenericInput.vue";
 import DateInput from "@/components/DateInput.vue";
 import NvButton from "@/components/NvButton.vue";
-import { getWeekDay } from "@/helpers/days";
-import { format } from "date-fns";
+import { getWeekDay, formatDate } from "@/helpers/days";
 export default Vue.extend({
   components: { GenericInput, DateInput, NvButton },
   props: ["sickday", "workHours", "language", "accumulatedHours"],
@@ -98,7 +97,7 @@ export default Vue.extend({
       return (this.accumulatedHours / this.workHours).toFixed(2);
     },
     formatedDate: function(): string {
-      return format(this.sickday.date, "dd MMM yyyy");
+      return formatDate(this.sickday.date);
     }
   },
   methods: {

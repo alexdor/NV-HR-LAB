@@ -1,5 +1,10 @@
 import { uuidv4 } from "@/helpers/uuid";
 import { SickDay, WeekDay } from "@/tools/SickDays/interfaces";
+import { format } from "date-fns";
+
+export function formatDate(date: Date) {
+  return format(date, "dd MMM yyyy");
+}
 
 export const weekDays: Array<WeekDay> = [
   "Sunday",
@@ -20,6 +25,7 @@ export function getNewDay(
   date = new Date(),
   generated = false
 ): SickDay {
+  date.setHours(0, 0, 0, 0);
   const weekDay = getWeekDay(date);
   return {
     id: uuidv4(),

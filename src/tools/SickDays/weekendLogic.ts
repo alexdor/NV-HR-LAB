@@ -16,13 +16,13 @@ const daysConfig = {
 };
 
 type DaysConfigKey = keyof typeof daysConfig;
-const daysToCheck: WeekDay[] = ["Monday", "Friday"];
+export const daysToCheck: WeekDay[] = ["Monday", "Friday"];
 /**
  * Returns the weekend and the thirdDay(Monday or Friday)
  * that is related with date passed
  * @return [saturday, sunday, thirdDay]
  */
-function getWeekendDays(weekDay: DaysConfigKey, date: Date) {
+export function getWeekendDays(weekDay: DaysConfigKey, date: Date) {
   const { daysToGet } = daysConfig[weekDay];
   if (daysToGet > 0) return getXDays(daysToGet, date);
   const [sun, sat, thirdDay] = getXDays(daysToGet, date);
@@ -127,7 +127,10 @@ export function adjustWeekendsOnAddDate(
   // If the date isn't a newly created date
   // and the date hasn't change (compare to the previous time)
   // check if workHours changed, and return data
-  if (!newDate && date.date === date.history?.date) {
+  if (
+    !newDate &&
+    date.date.toUTCString() === date.history?.date.toUTCString()
+  ) {
     if (date.hours !== date.history?.hours) {
       const saturday = findUTCDateInSickDays(sickDays, sat.toUTCString());
       const sunday = findUTCDateInSickDays(sickDays, sun.toUTCString());
